@@ -1,0 +1,323 @@
+html, body {
+	height: 100%;
+}
+
+body {
+	margin: 0px;
+	padding: 0px;
+	background: #333333;
+	font-family: 'Muli', sans-serif;
+	font-size: 12pt;
+	font-weight: 300;
+	color: #363636;
+}
+
+
+h1, h2, h3 {
+	margin: 0;
+	padding: 0;
+}
+
+p, ol, ul {
+	margin-top: 0px;
+}
+
+p {
+	line-height: 190%;
+}
+
+strong {
+}
+
+a {
+	color: #171717;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+#wrapper {
+	background: #FFFFFF url(images/bg01.png) repeat;
+}
+
+
+#content
+{
+	
+	width: 950px;
+	padding-left: 90px; 
+
+} 
+#page
+{
+
+	overflow: hidden;
+	padding: 3em 0em 0em 0em;
+
+}
+
+
+.container {
+	width: 1000px;
+	margin: 0px auto;
+}
+
+#copyright
+	{
+		overflow: hidden;
+		padding: 5em 0em;
+		text-align: center;
+	}
+	
+	#copyright p
+	{
+		letter-spacing: 0.20em;
+		text-align: center;
+		text-transform: uppercase;
+		font-size: 0.80em;
+		color: #6F6F6F;
+	}
+	
+	#copyright a
+	{
+		text-decoration: none;
+		color: #8C8C8C;
+	}
+
+
+	.title
+	{
+		margin-bottom: 2em;
+		text-transform: uppercase;
+	}
+
+
+.title h2
+	{
+		letter-spacing: 0.20em;
+		font-weight: 700;
+		font-size: 2em;
+		color: #00AABB;
+	}
+
+	#header-wrapper
+{
+	overflow: hidden;
+	background-size: 100%;
+	background: #333333;
+}
+
+
+	#header 
+	{
+		position: relative;
+		overflow: hidden;
+		text-align: center;
+	}
+
+	#logo 
+	{
+		width: 500px;
+		height: 100px;
+		margin: 0 auto;
+		padding: 2em 0em;
+		text-transform: uppercase;
+	}
+	
+	#logo h1
+	{
+		letter-spacing: 0.10em;
+		font-size: 3em;
+	}
+	
+	#logo p 
+	{
+		letter-spacing: 0.10em;
+		color: #FFF;
+	}
+	
+	#logo a 
+	{
+		text-decoration: none;
+		color: #FFF;
+	}
+
+	#barra
+{
+	background: #00AABB;
+	height: 33px;
+
+}
+
+#caixa
+{
+	width: 1000px;
+    border-top: 30px   solid #00AABB;
+    border-bottom: 30px   solid #00AABB;
+    
+}
+
+#tempos{
+	heigth:94px;
+	width:1000px;
+	font-size: 18px;
+	padding-top: 15px;
+}
+#tempo{ 
+	border: 2px solid #333333; 
+	float:left; 
+	heigth:94px;	
+	font-size: 20px; 
+	color:#3333; 
+	text-shadow:1px 0 #c0c0c0;
+	padding: 2px;
+	}
+#vidas{
+	heigth:94px;
+	float:right;
+}
+#coracao1,#coracao2, #coracao3,#coracao4,#coracao5 {
+	float: left;
+}
+
+
+#menu{
+list-style:none; 
+width: 1000px;
+heigth:94px;
+margin-bottom: 200px;
+
+
+}
+
+
+
+#jogo a {
+display: block;
+background: url(../images/jogo.png); 
+height:128px; 
+width:128px;
+
+}
+
+#jogo a:hover{
+display: block;
+background-image: url(../images/jogoh.png);
+height:128px; 
+width:128px;
+}
+
+
+#descricao a {
+display: block;
+background: url(../images/descricao.png); 
+height:128px; 
+width:128px;
+
+}
+
+#descricao a:hover{
+display: block;
+background-image: url(../images/descricaoh.png);
+height:128px; 
+width:128px;
+}
+
+#queixas a {
+display: block;
+background: url(../images/queixas.png); 
+height:128px; 
+width:128px;
+
+}
+
+#queixas a:hover{
+display: block;
+background-image: url(../images/queixash.png);
+height:128px; 
+width:128px;
+}
+
+#exames a {
+display: block;
+background: url(../images/exames.png); 
+height:128px;
+width:128px;
+
+}
+
+#exames a:hover{
+display: block;
+background-image: url(../images/examesh.png);
+height:128px; 
+width:128px;
+}
+
+#conduta a {
+display: block;
+background: url(../images/conduta.png); 
+height:128px;
+width:128px;
+
+}
+
+#conduta a:hover{
+display: block;
+background-image: url(../images/condutah.png);
+height:128px; 
+width:128px;
+}
+
+#diagnostico a {
+display: block;
+background: url(../images/diagnostico.png); 
+height:128px;
+width:128px;
+
+}
+
+#diagnostico a:hover{
+display: block;
+background-image: url(../images/diagnosticoh.png);
+height:128px; 
+width:128px;
+}
+
+
+#menu li{
+list-style:none; 
+float:left;
+padding:5px 15px;
+}
+
+
+#nurse{
+	text-align: center;
+}
+
+textarea { width:822px};
+
+.form input[type="button"] { 
+background-color: #4b8df9; 
+display: inline-block; 
+padding: 5px 10px 6px; 
+color: #fbf7f7; 
+text-decoration: none; 
+font-weight: bold; 
+line-height: 1;
+ -moz-border-radius: 5px; 
+ -webkit-border-radius: 5px; 
+ border-radius: 5px; 
+ -moz-box-shadow: 0 1px 3px #999; 
+ -webkit-box-shadow: 0 1px 3px #999;
+  box-shadow: 0 1px 3px #999; 
+  text-shadow: 0 -1px 1px #222;
+  border: none; 
+ position: relative; cursor: pointer; 
+ font-size: 14px; 
+ font-family:Verdana, Geneva, sans-serif;}
+.botoes:hover	{ background-color: #2a78f6; }
+	
+}
+

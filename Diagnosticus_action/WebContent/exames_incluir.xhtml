@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+
+</h:head>
+<body>
+	<ui:composition template="/template/principal.xhtml">
+		<ui:define name="content">
+			<div class="title">
+				<h2>Incluir Novo Exame</h2>
+			</div>
+			<div class="form">
+				<h:form id="contactform">
+					<p class="contact">
+						<label for="raca">Tipo do Exame</label>
+					</p>
+					<h:selectOneMenu styleClass="select-style raca"
+						value="#{tratadorExame.tipoexame.idTipoExame}" name="raca"
+						required="true" requiredMessage="Escolha um tipo de Exame!">
+						<f:selectItem itemValue="#{null}" itemLabel="Selecione" />
+						<f:selectItems value="#{tratadorTipoExame.listar()}"
+							var="tratador" itemLabel="#{tratador.descricaoTipoExame}"
+							itemValue="#{tratador.idTipoExame}" />
+					</h:selectOneMenu>
+					<br />
+					<br />
+
+					<p class="contact">
+						<label for="name">Nome do Exame</label>
+					</p>
+					<h:inputText id="nome" value="#{tratadorExame.exame.nomeExame}"
+						required="true" requiredMessage="O campo Nome não pode ser vazio"
+						validatorMessage="O nome do exame deve possuir no mínimo 2 e no maxímo 50 caracteres">
+						<f:validateLength minimum="2" maximum="50" />
+					</h:inputText>
+
+					<p class="contact">
+						<label for="name">Raso</label>
+					</p>
+					<h:inputText id="raso" value="#{tratadorExame.exame.raso}"
+						required="true" requiredMessage="O campo Raso não pode ser vazio"
+						validatorMessage="O raso deve possuir no mínimo 2 e no maxímo 50 caracteres">
+						<f:validateLength minimum="2" maximum="50" />
+					</h:inputText>
+					
+					
+					<p:fileUpload fileUploadListener="#{tratadorExame.uploadImagem}"
+						mode="advanced"  fileLimit="1" update="messages"
+						fileLimitMessage="Só é possível incluir uma imagem"
+						uploadLabel="Salvar" cancelLabel="Cancelar" label="Procurar"
+						allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+						
+					<p:growl id="messages" showDetail="true"/>
+
+					<h:commandButton value="Salvar"
+						action="#{tratadorExame.adicionarExame()}" class="buttom" />
+
+				</h:form>
+			</div>
+
+
+		</ui:define>
+	</ui:composition>
+</body>
+</html>

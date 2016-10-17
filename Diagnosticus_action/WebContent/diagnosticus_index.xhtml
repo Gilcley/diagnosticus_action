@@ -1,0 +1,26 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"> 
+
+<h:head>
+	
+</h:head>                        
+<body> 
+ 	<ui:composition template="/template/diagnosticus.xhtml">
+ 		<ui:define name="game">
+			<div id ="enf"><img src="images/enfa.png"/></div>
+			<div id = "dialogo">
+				<div id="texto" > <h2>Bem vindo(a) Dr(a). #{tratadorUsuario.usuario.nome}</h2> 
+								<br/> Voce tem um novo caso para solucionar!
+				</div><img src="images/dialogo.png"/></div>
+		</ui:define>
+		<ui:define name="botton-game">
+			<h:form id="formPrincipal" >
+				<div class= "bt_iniciar_jogo"><h:commandLink style="text-decoration: none; color: white;" value="Iniciar" action="#{tratadorJogo.iniciarJogo()}"/></div>
+			</h:form>
+		</ui:define>
+		
+	</ui:composition>
+</body> 
+</html>

@@ -1,0 +1,24 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"> 
+
+<h:head>
+
+</h:head>                        
+<body> 
+ 	<ui:composition template="/template/jogo.xhtml">
+ 		<ui:define name="content">
+		<div class="title">
+            <h2  id="bemvindo">Bem vindo(a) #{tratadorUsuario.usuario.nome}</h2></div>
+            <div id = "nurse">
+            <img src="../images/nurse.png"/></div>  
+            <p> Você iniciou o Diagnosticus Action III.<br/><br/>
+              Utilize o menu inferior para resolver 
+              o Caso Emergencial.
+              Boa sorte!
+            </p>
+		</ui:define>
+	</ui:composition>
+</body> 
+</html>

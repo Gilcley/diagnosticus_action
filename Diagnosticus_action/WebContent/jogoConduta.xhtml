@@ -1,0 +1,26 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"> 
+
+<h:head>
+
+</h:head>                        
+<body> 
+ 	<ui:composition template="/template/jogo.xhtml">
+ 		<ui:define name="content">
+		<div class="title">
+		
+            <h2 id="conduta">Conduta Médica</h2></div>
+            <h:form>
+             <p class="dados"><label for="Dados">Escreva a conduta médica para este caso:</label></p>
+			<h:inputTextarea id="descricao" class="textarea" name="antecedentespessoais" cols="45" rows="5"  value="#{tratadorJogo.condutaMedica.condutaMedica}">
+				<p:ajax oncomplete="#{tratadorJogo.condutaMedica.condutaMedica}"/>
+			</h:inputTextarea>  
+		</h:form>
+		</ui:define>
+	</ui:composition>
+</body> 
+</html>

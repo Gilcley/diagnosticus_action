@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+
+    <session-factory>
+
+        <!-- Database connection settings -->
+        <property name="connection.driver_class">org.postgresql.Driver</property>
+        <property name="connection.url">jdbc:postgresql://localhost:5432/db_diagnosticus</property>
+		<property name="connection.username">postgres</property>
+        <property name="connection.password">gilcley</property>
+<!--         <property name="connection.url">jdbc:postgresql://200.133.41.10:5432/db_diagnosticus</property> -->
+<!--         <property name="connection.username">usrdbdia</property> -->
+<!--         <property name="connection.password">dbdia551</property> -->
+		
+        <!-- JDBC connection pool (use the built-in) -->
+<!--         <property name="connection.pool_size">1</property> -->
+
+        <!-- SQL dialect -->
+        <property name="dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+
+        <!-- Enable Hibernate's automatic session context management -->
+        <property name="current_session_context_class">thread</property>
+
+        <!-- Disable the second-level cache  -->
+<!--         <property name="cache.provider_class">org.hibernate.cache.internal.NoCacheProvider</property> -->
+
+        <!-- Echo all executed SQL to stdout -->
+        <property name="show_sql">true</property>
+
+
+        <mapping class="br.com.diagnosticus_action.dominio.CasoEmergencial"/>
+        <mapping class="br.com.diagnosticus_action.dominio.EstadoCivil"/>
+        <mapping class="br.com.diagnosticus_action.dominio.Exame"/>
+        <mapping class="br.com.diagnosticus_action.dominio.Genero"/>
+        <mapping class="br.com.diagnosticus_action.dominio.ImagemExames"/>
+        <mapping class="br.com.diagnosticus_action.dominio.Naturalidade"/>
+        <mapping class="br.com.diagnosticus_action.dominio.Paciente"/>
+        <mapping class="br.com.diagnosticus_action.dominio.Profissao"/>
+        <mapping class="br.com.diagnosticus_action.dominio.Queixa"/>
+        <mapping class="br.com.diagnosticus_action.dominio.Raca"/>
+        <mapping class="br.com.diagnosticus_action.dominio.TipoExame"/>
+        <mapping class="br.com.diagnosticus_action.dominio.TipoQueixa"/>
+        <mapping class="br.com.diagnosticus_action.dominio.TipoUsuario"/>
+        <mapping class="br.com.diagnosticus_action.dominio.Usuario"/>
+        <mapping class="br.com.diagnosticus_action.dominio.Simulacao"/>
+        <mapping class="br.com.diagnosticus_action.dominio.Som"/>
+        <mapping class="br.com.diagnosticus_action.dominio.TipoCaracteristica"/>
+		<mapping class="br.com.diagnosticus_action.dominio.Caracteristica"/>
+		<mapping class="br.com.diagnosticus_action.dominio.Diagnostico"/>
+		<mapping class="br.com.diagnosticus_action.dominio.CondutaMedica"/>
+		<mapping class="br.com.diagnosticus_action.dominio.Jogo"/>
+		<mapping class="br.com.diagnosticus_action.dominio.Avaliacao"/>
+		<mapping class="br.com.diagnosticus_action.dominio.Turma"/>
+		<mapping class="br.com.diagnosticus_action.dominio.CID"/>
+		
+    </session-factory>
+
+</hibernate-configuration>

@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"> 
+
+<h:head>
+
+</h:head>                        
+<body> 
+ 	<ui:composition template="/template/principal.xhtml">
+ 		<ui:define name="content">
+				<div class="title"><h2>Alterar Caso Emergencial</h2></div>
+				
+				<div  class="form">
+    		<h:form id="contactform"> 
+    		<p:growl id="growl" sticky="true" />
+			<p class="contact"><label for="">Caso Emergencial</label></p> 
+			<h:selectOneMenu styleClass="select-style estadocivil" value="#{tratadorCasoEmergencial.casoEmergencial.idCasoEmergencial}" name="estadocivil"
+			required="true" requiredMessage="Selecione um Caso Emergencial">
+			<f:selectItem itemValue="#{null}" itemLabel="Selecione" />
+			<f:selectItems value="#{tratadorCasoEmergencial.listar()}" var="tratador"
+					itemLabel="#{tratador.descricaoCaso}" itemValue="#{tratador.idCasoEmergencial}" />
+			</h:selectOneMenu><br /> <br />
+			
+			
+			
+			<h:commandButton value="Selecionar"
+				action="#{tratadorCasoEmergencial.consultarCasoEmergencial()}" class="buttom" update="growl"/>
+				
+			<c:if test="${tratadorCasoEmergencial.casoEmergencial.idCasoEmergencial > 0}">
+			
+			<p class="contact"><label for="raca">Paciente:</label></p> 
+			<h:selectOneMenu id="paciente" styleClass="select-style raca" value="#{tratadorCasoEmergencial.casoEmergencial.paciente.idPaciente}" name="raca" >
+			<f:selectItem itemValue="#{null}" itemLabel="Selecione" />
+			<f:selectItems value="#{tratadorPaciente.listar()}" var="tratador"
+					itemLabel="#{tratador.nome}" itemValue="#{tratador.idPaciente}" />
+			</h:selectOneMenu><br /> <br />	
+    				
+    		<p class="contact"><label for="raca">Queixa Principal:</label></p> 
+			<h:selectOneMenu id="queixa" styleClass="select-style raca" value="#{tratadorCasoEmergencial.queixaPrincipal.idQueixa}" name="raca" 
+			required="true" requiredMessage="É necesário escolher uma queixa principal">
+			<f:selectItem itemValue="#{null}" itemLabel="Selecione" />
+			<f:selectItems value="#{tratadorQueixa.listar()}" var="tratador"
+					itemLabel="#{tratador.descricaoQueixa}" itemValue="#{tratador.idQueixa}" />
+			</h:selectOneMenu><br /> <br /> 
+			<h:commandButton value="Selecionar Queixa Principal"
+				action="#{tratadorCasoEmergencial.selecionarQueixa()}" class="buttom" update="growl"/>
+			
+				
+			<c:if test="#{tratadorCasoEmergencial.queixaPrincipal.idQueixa > 0}">
+			<p class="contact"><label for="raca">Queixas Secundárias:</label></p> 
+			<h:selectOneMenu id="queixasecundaria" styleClass="select-style raca" value="#{tratadorCasoEmergencial.queixa.idQueixa}" name="raca">
+			<f:selectItem itemValue="#{null}" itemLabel="Selecione" />
+			<f:selectItems value="#{tratadorCasoEmergencial.listaQueixaPermitidas}" var="tratador"
+					itemLabel="#{tratador.descricaoQueixa}" itemValue="#{tratador.idQueixa}" />
+			</h:selectOneMenu><br /> <br /> 
+			
+			<h:commandButton value="Selecionar Queixa"
+				action="#{tratadorCasoEmergencial.selecionarQueixasSecundarias()}" class="buttom" update="growl"/>
+			
+			<h:dataTable value="#{tratadorCasoEmergencial.listaqueixa}" var="queixa"
+  			 styleClass="employeeTable" 
+	   			headerClass="employeeTableHeader"
+			   rowClasses="employeeTableOddRow,employeeTableEvenRow">
+ 			  <h:column>    				
+    			  <f:facet name="header">Queixas selecionadas:</f:facet>    				
+    			 #{queixa.descricaoQueixa} 
+    			 <h:commandLink actionListener="#{tratadorCasoEmergencial.removerQueixa(queixa)}" value="Remover"/>
+  				 </h:column>
+			</h:dataTable><br /> <br />
+			
+			</c:if>
+    		
+<!--     		<h:message for="descricaocaso"/> -->
+    		<p class="contact"><label for="Antecedentes pessoais">Descrição do caso:</label></p>
+			<h:inputTextarea id="descricaocaso" class="textarea" name="antecedentespessoais" cols="45" rows="5" value="#{tratadorCasoEmergencial.casoEmergencial.descricaoCaso}">
+				<f:validateLength maximum="50"/>
+			</h:inputTextarea><br /> 
+			
+<!-- 			<h:message for="dadosexamefisico"/> -->
+    		<p class="contact"><label for="Antecedentes pessoais">Dados Exame Físico:</label></p>
+			<h:inputTextarea id="dadosexamefisico" class="textarea" name="antecedentespessoais" cols="45" rows="5" value="#{tratadorCasoEmergencial.casoEmergencial.dadosExameFisico}" >
+				<f:validateLength maximum="8000"/>
+			</h:inputTextarea><br /> 
+			
+				
+    		<p class="contact"><label for="raca">Exame:</label></p> 
+			<h:selectOneMenu id="exame" styleClass="select-style raca" value="#{tratadorCasoEmergencial.exame.idExame}" name="raca" >
+			<f:selectItem itemValue="#{null}" itemLabel="Selecione" />
+			<f:selectItems value="#{tratadorExame.listar()}" var="tratador"
+					itemLabel="#{tratador.nomeExame}" itemValue="#{tratador.idExame}" />
+			</h:selectOneMenu><br /> <br />
+			
+			<h:commandButton value="Selecionar Exame"
+				action="#{tratadorCasoEmergencial.selecionarExame()}" class="buttom" update="growl"/>
+			
+			<h:dataTable value="#{tratadorCasoEmergencial.listaExames}" var="exame"
+  			 styleClass="employeeTable" 
+	   			headerClass="employeeTableHeader"
+			   rowClasses="employeeTableOddRow,employeeTableEvenRow">
+ 			  <h:column>    				
+    			  <f:facet name="header">Exames selecionados:</f:facet>    				
+    			 #{exame.nomeExame}
+    			 <h:commandLink actionListener="#{tratadorCasoEmergencial.removerExame(exame)}" value="Remover"/>
+  				 </h:column>
+			</h:dataTable><br /> <br />
+			
+			<p class="contact"><label for="raca">Diagnóstico:</label></p> 
+		  	<p:autoComplete id="themePojo" value="#{tratadorCasoEmergencial.casoEmergencial.cid}" completeMethod="#{tratadorCasoEmergencial.autoCompleteCID}" 
+               var="cid" itemLabel="#{cid.descricaoAbreviada}" itemValue="#{cid}"  converter="cidConverter" forceSelection="true" >
+            </p:autoComplete><br/>
+			
+			<h:commandButton value="Alterar"
+				action="#{tratadorCasoEmergencial.alterarCasoEmergencial()}" class="buttom" update="growl"/>
+				
+        </c:if>
+   </h:form> 
+</div>      
+
+		</ui:define>
+	</ui:composition>
+</body> 
+</html>

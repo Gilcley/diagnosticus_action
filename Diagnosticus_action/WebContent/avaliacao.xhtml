@@ -1,0 +1,304 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<h:head>
+
+
+</h:head>
+<body>
+	<ui:composition template="/template/principal.xhtml">
+		<ui:define name="content">
+			<div class="form">
+				<h:form id="contactform">
+					<p:growl id="growl" sticky="true" />
+					<c:if
+						test="${tratadorAvaliacao.simulacaoAluno.descricaoSimulacao == null}">
+						<p class="simulacao">
+							<label for="raca">Aluno:</label>
+						</p>
+						<h:selectOneMenu id="alunos" styleClass="select-style raca"
+							value="#{tratadorAvaliacao.aluno.idUsuario}" name="alunos"
+							required="true" requiredMessage="É necessário escolher um Aluno.">
+							<f:selectItem itemValue="#{null}" itemLabel="Selecione" />
+							<f:selectItems value="#{tratadorUsuario.listarAlunos()}"
+								var="tratador" itemLabel="#{tratador.nome}"
+								itemValue="#{tratador.idUsuario}" />
+						</h:selectOneMenu>
+						<br />
+						<br />
+
+						<c:if test="#{tratadorAvaliacao.aluno.idUsuario == null}">
+							<h:commandButton value="Selecionar"
+								action="#{tratadorAvaliacao.carregarDadosAluno()}"
+								class="buttom" />
+						</c:if>
+
+						<c:if test="${tratadorAvaliacao.aluno.idUsuario > 0 }">
+
+							<c:if test="#{tratadorAvaliacao.listaSimulacao.size()>0}">
+								<p class="contact">
+									<label for="simulacao">Simulação</label>
+								</p>
+								<h:selectOneMenu id="simulacao" styleClass="select-style raca"
+									value="#{tratadorAvaliacao.simulacaoAluno.idSimulacao}"
+									name="simulacao_avaliacao" required="true"
+									requiredMessage="É necessário escolher uma simulação.">
+									<f:selectItem itemValue="#{null}" itemLabel="Selecione" />
+									<f:selectItems value="#{tratadorAvaliacao.listaSimulacao}"
+										var="tratador" itemLabel="#{tratador.descricaoSimulacao}"
+										itemValue="#{tratador.idSimulacao}" />
+								</h:selectOneMenu>
+								<br />
+								<br />
+
+								<h:commandButton id="selecionar_simulacao" value="Selecionar"
+									action="#{tratadorAvaliacao.carregarDetalhesSimulacao()}"
+									class="buttom" />
+							</c:if>
+							<c:if test="#{tratadorAvaliacao.listaSimulacao.size()==0}">
+							
+								<p class="contact">
+									<label for="simulacao">Este Aluno não possui simulações cadastradas.</label>
+								</p>
+								<h:commandButton id="voltarSimulacao" value="Escolher Outro Aluno"
+									action="#{tratadorAvaliacao.limpaCampos}"
+									class="buttom" />
+							</c:if>
+						</c:if>
+
+
+					</c:if>
+					<c:if test="${tratadorAvaliacao.simulacaoAluno.idSimulacao > 0}">
+						<!-- Depois de clicar em consultar os dados abaixo serão preenchidos-->
+						<br />
+						<br />
+						<div id="caixaavalicao1">
+							<p class="contact">
+								<label for="nomealuno"> Nome do Aluno: </label>
+							</p>
+							<h:inputText id="nome" nome="nome"
+								value="#{tratadorAvaliacao.aluno.nome}" disabled="true">
+							</h:inputText>
+							<br />
+							<p class="contact">
+								<label for="matricula">Matricula: </label>
+							</p>
+							<h:inputText id="nomematricula"
+								value="#{tratadorAvaliacao.aluno.matricula}" disabled="true">
+							</h:inputText>
+							<br />
+							<p class="contact">
+								<label for="nomesimulacao">Nome da Simulação: </label>
+							</p>
+							<h:inputText id="nomesimulacao"
+								value="#{tratadorAvaliacao.simulacaoAluno.descricaoSimulacao}" disabled="true">
+							</h:inputText>
+							<br />
+
+							<p class="contact">
+								<label for="desc">Descrição do Caso: </label>
+							</p>
+							<h:inputTextarea id="desc" class="textarea" disabled="true"
+								name="historicopsicosocial" cols="45" rows="5"
+								value="#{tratadorAvaliacao.simulacaoAluno.idCasoEmergencial.descricaoCaso}">
+								<f:validateLength maximum="8000" />
+							</h:inputTextarea>
+							<br />
+
+							<p class="contact">
+								<label for="dadosfis">Dados do Exame Fisico</label>
+							</p>
+							<h:inputTextarea id="dadosfis" class="textarea" disabled="true"
+								name="historicopsicosocial" cols="45" rows="5"
+								value="#{tratadorAvaliacao.simulacaoAluno.idCasoEmergencial.dadosExameFisico}">
+								<f:validateLength maximum="8000" />
+							</h:inputTextarea>
+							<br />
+
+							<p class="contact">
+								<label for="paciente">Paciente: </label>
+							</p>
+							<h:inputText id="pacientename"
+								value="#{tratadorAvaliacao.simulacaoAluno.idCasoEmergencial.paciente.nome}">
+							</h:inputText>
+							<br />
+
+							<!-- Nessa parte fazer uma pop up com detalhes do paciente-->
+
+							<p class="contact">
+								<label for="queixas">Queixas: </label>
+							</p>
+							<h:inputTextarea id="queixas" class="textarea" disabled="true"
+								name="historicopsicosocial" cols="45" rows="5"
+								value="#{tratadorAvaliacao.simulacaoAluno.idCasoEmergencial.queixaPrincipal.descricaoQueixa}">
+								<f:validateLength maximum="8000" />
+							</h:inputTextarea>
+							<br />
+
+							<!-- 							<p class="contact"> -->
+							<!-- 								<label for="sinais">Sinais: </label> -->
+							<!-- 							</p> -->
+							<!-- 							<h:inputTextarea id="sinais" class="textarea" disabled="true" -->
+							<!-- 								name="historicopsicosocial" cols="45" rows="5" -->
+							<!-- 								value="#{tratadorJogo.paciente.historicoPsicossocialHabitosVicios}"> -->
+							<!-- 								<f:validateLength maximum="8000" /> -->
+							<!-- 							</h:inputTextarea> -->
+							<!-- 							<br /> -->
+
+							<!-- 							<p class="contact"> -->
+							<!-- 								<label for="sintomas">Sintomas: </label> -->
+							<!-- 							</p> -->
+							<!-- 							<h:inputTextarea id="sintomas" class="textarea" disabled="true" -->
+							<!-- 								name="historicopsicosocial" cols="45" rows="5" -->
+							<!-- 								value="#{tratadorJogo.paciente.historicoPsicossocialHabitosVicios}"> -->
+							<!-- 								<f:validateLength maximum="8000" /> -->
+							<!-- 							</h:inputTextarea> -->
+							<!-- 							<br /> -->
+
+							<!-- 							<p class="contact"> -->
+							<!-- 								<label for="exames">Exames: </label> -->
+							<!-- 							</p> -->
+							<!-- 							<h:inputTextarea id="exames" class="textarea" disabled="true" -->
+							<!-- 								name="historicopsicosocial" cols="45" rows="5" -->
+							<!-- 								value="#{tratadorJogo.paciente.historicoPsicossocialHabitosVicios}"> -->
+							<!-- 								<f:validateLength maximum="8000" /> -->
+							<!-- 							</h:inputTextarea> -->
+							<!-- 							<br /> -->
+
+						</div>
+						<br />
+						<br />
+						<c:if test="#{tratadorAvaliacao.jogoAvaliacao.idJogo > 0}">
+							<div id="caixaavalicao2">
+								<!-- Os campos segintes serão completados com os dados obtidos(o que o aluno escreveu) no jogo -->
+								<div class="respobt">
+									<label id="cent">Respostas Obtidas</label><br />
+								</div>
+								<p class="contact">
+								
+								<c:if test="#{tratadorAvaliacao.jogoAvaliacao.pacienteMorreu}">
+									<p class="contact">
+										<label for="diagnostico">O paciente morreu antes do jogo acabar. </label>
+									</p><br />
+								</c:if>
+								<c:if test="#{!tratadorAvaliacao.jogoAvaliacao.pacienteMorreu}">
+									<p class="contact">
+										<label for="diagnostico">O paciente não morreu. </label>
+									</p><br />
+								</c:if>
+								
+								<c:if test="#{tratadorAvaliacao.jogoAvaliacao.isTimeOut}">
+									<p class="contact">
+										<label for="diagnostico">O aluno deixou o tempo da simulação ser atingido. </label>
+									</p><br />
+								</c:if>
+
+								</p>
+								<h:dataTable value="#{tratadorAvaliacao.jogoAvaliacao.exame}"
+								var="queixa" styleClass="employeeTable"
+								headerClass="employeeTableHeader"
+								rowClasses="employeeTableOddRow,employeeTableEvenRow">
+								<h:column>
+									<f:facet name="header">Exames Solicitados:</f:facet>    				
+    							 #{queixa.nomeExame} 
+  				 				</h:column>
+							</h:dataTable>
+							<br />
+							<br />
+							
+							<p:commandButton  value="Detalhar"
+								oncomplete="PF('imagem').show()" update="caixaimagem"/>
+							<br /><br />
+							<p:dialog header="Registro das Solicitações" widgetVar="imagem" modal="true" id="caixaimagem" >
+								<h:inputTextarea value="#{tratadorAvaliacao.jogoAvaliacao.horaSolicitacaoExame}"  disabled="true" style="width:750px;min-height:250px;"/>
+							</p:dialog>
+
+								<p class="contact">
+									<label for="conduta">Conduta Médica: </label>
+								</p>
+								<h:inputTextarea id="conduta" class="textarea" disabled="true"
+									name="historicopsicosocial" cols="45" rows="5"
+									value="#{tratadorAvaliacao.jogoAvaliacao.condutaMedica.condutaMedica}">
+									<f:validateLength maximum="8000" />
+								</h:inputTextarea>
+								<br />
+
+								
+								<p class="contact">
+									<label for="diagnostico">Diagnóstico: </label>
+								</p>
+<!-- 								<h:inputTextarea id="diagnostico" class="textarea" -->
+<!-- 									disabled="true" name="historicopsicosocial" cols="45" rows="5" -->
+<!-- 									value="#{tratadorAvaliacao.jogoAvaliacao.diagnostico.descricaoDiagnostico}"> -->
+<!-- 									<f:validateLength maximum="8000" /> -->
+<!-- 								</h:inputTextarea> -->
+<!-- 								<br /> -->
+
+								<p class="contact">
+									<label for="tratamento">Tratamento: </label>
+								</p>
+								<h:inputTextarea id="tratamento" class="textarea" 
+									disabled="true" name="historicopsicosocial" cols="45" rows="5"
+									value="#{tratadorAvaliacao.jogoAvaliacao.diagnostico.tratamento}">
+									<f:validateLength maximum="8000" />
+								</h:inputTextarea>
+								<br />
+								<!-- Os campos com os dados obtidos(o que o aluno escreveu) no jogo acabam aqui! -->
+							</div>
+							<br />
+							<br />
+							<div id="caixaavalicao3">
+								<!-- Os campos segintes serão completados com a nota  e observações que o aluno obteve no jogo -->
+								<p class="contact">
+									<label for="nota">Nota: </label>
+								</p>
+								<h:inputText id="nota"
+									value="#{tratadorAvaliacao.avaliacao.nota}" required="true"
+									requiredMessage="Nota é um campo obrigatório">
+									<f:convertNumber />
+								</h:inputText>
+								<br />
+
+								<p class="contact">
+									<label for="observacoescampo">Observações: </label>
+								</p>
+								
+								<h:inputTextarea style="resize:none; width:97%;" value="#{tratadorAvaliacao.avaliacao.observacao}" required="true" requiredMessage="Observação é um campo obrigatório."
+								
+								 /><br />
+								
+								
+								
+								<h:commandButton value="Salvar"
+									action="#{tratadorAvaliacao.AdicionarAvaliacao()}"
+									class="buttom" update="grow" />
+							</div>
+						</c:if>
+						<c:if test="#{tratadorAvaliacao.jogoAvaliacao.idJogo == null}">
+							<p class="contact">
+								<label for="alunonaojogou">O Aluno não jogou esta
+									simulação ainda. </label>
+							</p>
+							<h:commandButton value="Voltar"
+								action="#{tratadorAvaliacao.limpaCampos()}" class="buttom"
+								update="grow" />
+
+
+						</c:if>
+						<br />
+						<br />
+						<br />
+						<br />
+
+					</c:if>
+				</h:form>
+			</div>
+		</ui:define>
+	</ui:composition>
+</body>
+</html>

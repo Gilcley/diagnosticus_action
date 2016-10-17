@@ -1,0 +1,37 @@
+<ui:composition template="/template/login.xhtml"
+ 					xmlns="http://www.w3.org/1999/xhtml"
+			      xmlns:h="http://java.sun.com/jsf/html"
+			      xmlns:f="http://java.sun.com/jsf/core"
+			      xmlns:x="http://primefaces.org/ui"
+			      xmlns:ui="http://java.sun.com/jsf/facelets"
+			       xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+
+	<ui:define name="caixa">
+		<div class="login">
+			<h:form>
+				<x:growl id="growl"  sticky="true" /> 
+			<x:inputText maxlength="12" required="true" p:placeholder="Matrícula" requiredMessage="O Campo matrícula é obrigatório." 
+			value="#{tratadorUsuario.usuarioLogado.matricula}"
+			validatorMessage="A matrícula possui no mínimo 7 e no máximo 12 números.">
+			<f:convertNumber type="number"/>
+			<f:validateLength minimum="7"/>
+			</x:inputText>
+			
+			<h:inputSecret type="password" p:placeholder="Senha" name="password"
+			required="true" requiredMessage="O campo Senha não pode ser vazio!"
+			validatorMessage="A senha deve possuir 6 caracteres."
+			value="#{tratadorUsuario.usuarioLogado.senha}">
+			</h:inputSecret><br/>
+				
+	
+			<h:commandButton  value="Login" action="#{tratadorUsuario.logar()}" update="growl"/>
+			</h:form>
+		</div>
+		<div class="caderec">
+			<a href="loginRecuperarSenha.xhtml" class="esqueceusenha">Esqueceu senha?</a><br/>
+			<a href="loginPrimeiroAcesso.xhtml" class="acessopri" >Primeiro Acesso?</a>
+		</div>
+	
+	
+	</ui:define>
+</ui:composition>

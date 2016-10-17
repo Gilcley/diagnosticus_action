@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:head>
+		<title>Diagnosticus Action</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="../css/diagnosticus.css" />
+		<!-- <link rel="stylesheet" type="text/css"  href="../css/diagnosticus.css"/> -->
+	
+</h:head>
+
+<h:body >
+	 	<div id="page-wrapper">
+			<!-- Header -->
+				<div id="header">
+						<!-- <p:media player="quicktime" id="audio_sirene"  value="../sons/sirene.mp3" cache="false" style="position: absolute; left:-9999px">
+					      	<f:param name="autoPlay"  value="true" />
+					     </p :media>	-->
+					
+						<h1><div id="titulo">DIAGNOSTICUS <br/>ACTION</div></h1>
+				</div>
+
+				<section class="menu">
+				<div id="nav">
+					<div class="container">
+							<ul>
+								<li class="current"><a href="index.html">Inicio</a></li>
+								<li><a href="left-sidebar.html">Simulacoes</a></li>
+								<li><a href="right-sidebar.html">Sobre o jogo</a></li>
+							</ul>
+
+						<div class="caixaDireita">        
+
+						<div id ="jogador">#{tratadorUsuario.usuario.nome}</div>
+						<div id="notificacao"></div>
+						</div>					
+						</div>
+					</div>
+				</section>
+			<!-- Highlights -->
+				<section class="wrapper">
+					<div class="container">
+						<div class="container_jogo">
+							<p:growl id="growl"  sticky="true" />
+							<div id="top-game">	
+								<div id= "tempo">Tempo Restante: <h:outputText value="#{tratadorUsuario.simulacao.tempoNecessarioFormatado}"/> 
+								</div>
+								<div id= "vida">
+									<div id ="tempoVida">
+									<div id="coracao1"><img src="../images/life.png"/> </div>
+					
+							        	<div id="coracao2"><img src="../images/life.png"/></div>
+
+							        	<div id="coracao3"><img src="../images/life.png"/></div>
+							     
+							        	<div id="coracao4"><img src="../images/life.png"/></div>
+							  
+							        	<div id="coracao5"><img src="../images/life.png"/></div>
+							    	</div>
+								</div>
+							</div>
+							<div id="game">
+							 <ui:insert name="game"></ui:insert>
+							</div>
+						</div>
+						<div id="botton-game">
+							<a href="diagnosticus_acoes_dadospaciente.xhtml#tempo"><div id="bt_game1"></div></a>
+							<a href="diagnosticus_acoes_dadospaciente.xhtml#tempo"><div id="bt_game2"/></a>
+							<a href="diagnosticus_acoes_queixas.xhtml#tempo"><div id="bt_game3"></div></a>
+							<a href="diagnosticus_acoes_exames.xhtml#tempo"><div id="bt_game4"></div></a>
+							<a href="diagnosticus_acoes_dadospaciente.xhtml#tempo"><div id="bt_game5"></div></a>
+							<a href="diagnosticus_acoes_diagnostico.xhtml#tempo"><div id="bt_game6"></div></a>	
+						</div>		
+					</div>
+				</section>
+			<!-- Footer -->
+				<div id="footer">
+
+				<div class="container">
+					<p> &copy;  All rights reserved. | Diagnosticus Action | TCC2- Gilcley and Jessica </p>
+				</div>
+				</div>
+		</div>	 	 
+</h:body>
+
+</html>

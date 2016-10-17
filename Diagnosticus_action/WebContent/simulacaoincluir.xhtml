@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"> 
+
+<h:head>
+
+</h:head>                        
+<body> 
+ 	<ui:composition template="/template/principal.xhtml">
+ 		<ui:define name="content">
+				<div class="title"><h2>Incluir Nova Simulação</h2></div>
+				<div  class="form">
+    		<h:form id="contactform"> 
+    			<p:growl id="growl" sticky="true" />
+    		
+			<p class="contact">
+						<label for="raca">Caso Emergencial:</label>
+					</p>
+					<h:selectOneMenu id="queixa" styleClass="select-style raca"  requiredMessage="Selecione um caso emergencial."
+						value="#{tratadorSimulacao.casoemergencial.idCasoEmergencial}"
+						name="raca">
+						<f:selectItem itemValue="#{null}" itemLabel="Selecione" />
+						<f:selectItems value="#{tratadorCasoEmergencial.listar()}"
+							var="tratador" itemLabel="#{tratador.descricaoCaso}"
+							itemValue="#{tratador.idCasoEmergencial}" />
+					</h:selectOneMenu>
+					<br />
+					<br />
+					
+					<p class="contact">
+						<label for="raca">Selecionar por:</label>
+					</p>
+					
+					<p:fragment autoUpdate="true">
+					
+						<h:selectOneRadio layout="lineDirection" value="#{tratadorSimulacao.porTurma}" immediate="true">
+							<f:selectItem itemValue="#{true}" itemLabel="Turma" />
+							<f:selectItem itemValue="#{false}" itemLabel="Aluno" />
+							<p:ajax event="click"  update="turma" />
+						</h:selectOneRadio>
+						
+						
+						<p class="contact" >
+							<label for="raca" >${tratadorSimulacao.porTurma ? 'Turma' : 'Aluno'}:</label>
+						</p>
+
+
+						<!-- CASO ESCOLHA TURMA -->
+
+						<h:selectOneMenu id="turma" styleClass="select-style raca" rendered="#{tratadorSimulacao.porTurma}"
+							value="#{tratadorSimulacao.turma.id}" name="turma"
+							
+							requiredMessage="É necessário escolher um usuário.">
+							<f:selectItem itemValue="#{null}" itemLabel="Selecione" />
+							<f:selectItems value="#{tratadorTurma.turmas}" var="turma"
+								itemLabel="#{turma.nomeTurma}" itemValue="#{turma.id}" />
+						</h:selectOneMenu>
+
+
+						
+					<p:autoComplete id="themePojo" value="#{tratadorSimulacao.usuario}" completeMethod="#{tratadorUsuario.autoCompleteUsuario}" 
+						rendered="#{!tratadorSimulacao.porTurma}"   var="aluno" itemLabel="#{aluno.nome}" 
+						itemValue="#{aluno}"  converter="usuarioConverter" forceSelection="true" >
+                     	<p:ajax event="itemSelect" listener="#{tratadorSimulacao.adicionarAluno}" update="alunosSelecionados" />
+                     </p:autoComplete>
+					
+						
+					<h:dataTable value="#{tratadorSimulacao.listaAlunosSimulacao}" var="aluno" rendered="#{!tratadorSimulacao.porTurma}"
+		  			 styleClass="employeeTable" id="alunosSelecionados"
+			   			headerClass="employeeTableHeader"
+					   rowClasses="employeeTableOddRow,employeeTableEvenRow">
+			 			  <h:column>    				
+		    			  	<f:facet name="header">Alunos Selecionados:</f:facet>    				
+		    			 	#{aluno.nome}
+		    			 	<h:commandLink actionListener="#{tratadorSimulacao.removerAluno(aluno)}" value="Remover"/>
+		  				 </h:column>
+					</h:dataTable><br /> <br />
+			
+					</p:fragment>
+					
+					<br />
+					<br />
+												
+					<p class="contact">
+						<label for="Antecedentes pessoais">Descrição da Simulação:</label>
+					</p>
+					<h:inputTextarea id="descricaosimulacao" class="textarea"  requiredMessage="O campo descrição da simlação é obrigatório."
+						name="antecedentespessoais" cols="45" rows="5" validatorMessage="O Campo Descrição deve conter no maxímo 50 caracteres."
+						value="#{tratadorSimulacao.simulacao.descricaoSimulacao}">
+						<f:validateLength maximum="50" />
+					</h:inputTextarea>
+					<br />
+
+					<p class="contact">
+						<label for="name">Tempo da Simulação</label>
+					</p>
+        			<p:calendar id="temponecessario" value="#{tratadorSimulacao.simulacao.tempoNecessario}"  pattern="HH:mm" timeOnly="true" requiredMessage="Escolha o tempo necessário." />
+
+					<p class="contact">
+						<label for="name">Tempo do Exame Ficar Pronto</label>
+					</p>
+					<p:calendar id="tempoexame" value="#{tratadorSimulacao.simulacao.tempoExamePronto}" pattern="HH:mm " timeOnly="true"  requiredMessage="Escolha o tempo do exame."/>
+				
+					<p class="contact">
+						<label for="name">Tempo de Vida do Paciente</label>
+					</p>
+					<p:calendar id="tempovida" value="#{tratadorSimulacao.simulacao.tempoVidaPaciente}" pattern="HH:mm " timeOnly="true"  requiredMessage="Escolha o tempo de vida do paciente."/>
+					
+			
+			<h:commandButton value="Salvar"
+				action="#{tratadorSimulacao.adicionarSimulacao()}" class="buttom" update="grow"/>
+        
+   </h:form> 
+</div>      
+		
+		</ui:define>
+	</ui:composition>
+</body>
+</html>

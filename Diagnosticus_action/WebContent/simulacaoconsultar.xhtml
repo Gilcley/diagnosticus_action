@@ -1,0 +1,64 @@
+<ui:composition template="/template/principal.xhtml"
+				xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:p="http://primefaces.org/ui"
+				xmlns:c="http://java.sun.com/jsp/jstl/core">
+				
+	<ui:define name="content">
+		<div class="title">
+			<h2>Consultar Simulação</h2>
+		</div>
+
+		<div class="form">
+			<h:form id="contactform">
+				<p class="contact">
+					<h:messages />
+					<label for="">Simulação</label>
+				</p>
+				<h:selectOneMenu styleClass="select-style estadocivil"
+					value="#{tratadorSimulacao.simulacao.idSimulacao}"
+					name="estadocivil" required="true"
+					requiredMessage="É necessário escolher uma Simulação.">
+					<f:selectItem itemValue="#{null}" itemLabel="Selecione" />
+					<f:selectItems value="#{tratadorSimulacao.listar()}"
+						var="tratador" itemLabel="#{tratador.descricaoSimulacao}"
+						itemValue="#{tratador.idSimulacao}" />
+				</h:selectOneMenu>
+				<br />
+				<br />
+
+
+
+				<h:commandButton value="Selecionar" 
+					action="#{tratadorSimulacao.consultarSimulacao()}"
+					class="buttom" /><br /><br />
+				
+				<c:if
+					test="${tratadorSimulacao.simulacao.idSimulacao > 0}">
+						<h:outputText value="Caso Emergencial" /><br /><br />
+						<h:inputText value="#{tratadorSimulacao.simulacao.idCasoEmergencial.descricaoCaso}" disabled="true"/><br />
+						<h:outputText value="Alunos" /><br /><br />
+						
+						<h:dataTable value="#{tratadorSimulacao.simulacao.usuario}" var="aluno">
+ 			  				<h:column>    				    				
+			    			 #{aluno.nome} 
+			  				 </h:column>
+						</h:dataTable><br /> <br />
+						
+						<h:outputText value="Descrição da Simulação" /><br /><br />
+						<h:inputText value="#{tratadorSimulacao.simulacao.descricaoSimulacao}" disabled="true"/><br />
+						<h:outputText value="Tempo da Simulação" /><br /><br />
+						<h:inputText value="#{tratadorSimulacao.formataTempoNecessario()}" disabled="true"/><br />
+						<h:outputText value="Tempo Exame Pronto" /><br /><br />
+						<h:inputText value="#{tratadorSimulacao.formataTempoExame()}" disabled="true"/><br />
+						<h:outputText value="Tempo de Vida do Paciente" /><br /><br />
+						<h:inputText value="#{tratadorSimulacao.formataTempoVidaPaciente()}" disabled="true"/><br />
+					
+				</c:if>
+			</h:form>
+		</div>
+
+	</ui:define>
+</ui:composition>

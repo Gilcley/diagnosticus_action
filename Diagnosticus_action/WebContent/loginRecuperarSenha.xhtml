@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+
+<h:head>
+
+
+</h:head>                        
+<body> 
+ 	<ui:composition template="/template/login.xhtml">
+ 		<ui:define name="caixa">
+ 			<div class="login">
+ 			<h:form>
+<!-- 				<h:inputText type="text" p:placeholder="Matricula" name="user" -->
+<!-- 				required="true" requiredMessage="O campo Matricula não pode ser vazio!" -->
+<!-- 				validatorMessage="A Matricula deve conter no minimo 12 caracteres."> -->
+<!-- 				<f:validateLength minimum="12" maximum="12" /></h:inputText><br/><br/> -->
+				
+				
+				<h:inputText type="text" p:placeholder="E-mail" name="user" value="#{tratadorEmail.mensagem.destino}"
+				required="true" requiredMessage="O campo E-mail não pode ser vazio!">
+				</h:inputText><br/><br/>
+		
+				<h:commandButton  value="Enviar Senha" action="#{tratadorEmail.enviaEmail()}"/>
+				<!-- Enviar Senha p emeail do usuario -->
+				</h:form>
+				</div>	
+								
+				<div class="caderec">
+				<br/>
+					<a href="loginEntrar.xhtml" class="esqueceusenha">Tela de Login</a><br/>
+				</div>
+		</ui:define>
+	</ui:composition>
+</body>
+</html>

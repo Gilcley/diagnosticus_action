@@ -1,0 +1,34 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"> 
+
+<h:head>
+
+</h:head>                        
+<body> 
+
+
+<!--Essa tela fuinciona depois do professor ter configurado uma simulação!
+	Alem disso, apos o login o aluno faz login , 
+	vai p tela de aluno e clica em jogar simulação
+	Essa tela somente irá exibir 
+	os dados do exame fisico(aquele feito apenas olhando p paciente)
+	
+	 -->
+	 
+	 
+ 	<ui:composition template="/template/jogo.xhtml">
+ 		<ui:define name="content">
+		<div class="title">
+            <h2>Dados do exame físico</h2></div>
+            		<h:form>
+           	<p class="contact"><label for="Dados">Detalhes do exame físico:</label></p>
+			<h:inputTextarea id="descricaocaso" class="textarea" name="antecedentespessoais" cols="45" rows="5" value="#{tratadorJogo.caso.dadosExameFisico}"/>
+			<p class="contact"><label for="Dados">Descricão da doença atual:</label></p>
+			<h:inputTextarea id="descricaocasos" class="textarea" name="antecedentespessoais" cols="45" rows="5" value=""/>
+		</h:form>
+		</ui:define>
+	</ui:composition>
+</body> 
+</html>

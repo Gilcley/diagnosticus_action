@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"> 
+
+<h:head>
+
+</h:head>                        
+<body> 
+ 	<ui:composition template="/template/telaAluno.xhtml">
+ 		<ui:define name="content">
+ 		<div class="title">
+            <h2>Avaliações</h2></div>
+    <h:form id="formAvaliacaoAluno">
+   	<p:growl id="growl" sticky="true" />
+			 	<p:panelGrid>
+			 		<p:selectOneMenu id="simulacao" value="#{tratadorUsuario.simulacao.idSimulacao}" layout="grid" columns="1"
+			 		required="true" requiredMessage="É necessário escolher uma Simulação">
+			 			<f:selectItems value="#{tratadorUsuario.listaTodasSimulacoes}"
+							var="tratador" itemLabel="#{tratador.descricaoSimulacao}"
+							itemValue="#{tratador.idSimulacao}" />
+			 		</p:selectOneMenu>
+			 	</p:panelGrid>
+				
+			<h:commandButton value="Consultar" id="botaoConsultar"
+			class="buttom"  action="#{tratadorUsuario.consultarNotas()}" update="growl"/><br /><br />
+			<c:if test="#{tratadorUsuario.avaliacao.idAvaliacao > 0}">
+				<h:outputLabel value="Nota: #{tratadorUsuario.avaliacao.nota}" /><br /><br />
+				<h:outputLabel value="Observação:" /><br /><br />
+				<h:inputTextarea style="resize:none; width:100%" value="#{tratadorUsuario.avaliacao.observacao}" disabled="true" />
+			</c:if>
+		</h:form>
+		</ui:define>
+	</ui:composition>
+</body> 
+</html>

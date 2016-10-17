@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<h:head>
+
+</h:head>
+<body>
+	<ui:composition template="/template/principal.xhtml">
+		<ui:define name="content">
+			<div class="title">
+				<h2>Consultar Turmas</h2>
+			</div>
+
+			<div class="form">
+				<h:form id="contactform">
+				<p:growl id="growl" sticky="true" />
+					<p class="contact">
+						<label for="">Turmas</label>
+					</p>
+					<h:selectOneMenu styleClass="select-style estadocivil"
+						value="#{tratadorTurma.turma.id}"
+						name="turmas" required="true"
+						requiredMessage="Escolha uma Turma">
+						<f:selectItem itemValue="#{null}" itemLabel="Selecione" />
+						<f:selectItems value="#{tratadorTurma.turmas}"
+							var="turma" itemLabel="#{turma.nomeTurma}"
+							itemValue="#{turma.id}" />
+					</h:selectOneMenu>
+					<br />
+					<br />
+
+
+					<h:commandButton value="Buscar"
+						action="#{tratadorTurma.buscarTurmaSelecionada()}"
+						class="buttom"  update="growl"/>
+
+				<p:fragment autoUpdate="true">
+					<h:dataTable value="#{tratadorTurma.turma.alunos}" var="aluno" rendered="#{tratadorTurma.turma.id > 0}">
+						<h:column>
+							<f:facet name="Nome"/>
+							<h:outputText value="#{aluno.nome}"/>
+						</h:column>
+					</h:dataTable>
+				</p:fragment>
+					
+				</h:form>
+			</div>
+
+
+		</ui:define>
+	</ui:composition>
+</body>
+</html>

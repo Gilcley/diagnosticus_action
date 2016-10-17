@@ -1,0 +1,180 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<h:head>
+
+</h:head>
+<body>
+	<ui:composition template="/template/principal.xhtml">
+		<ui:define name="content">
+			<div class="title">
+				<h2>Alterar Paciente</h2>
+			</div>
+
+			<div class="form">
+				<h:form id="contactform">
+					<p:growl id="growl" sticky="true" />
+					<p class="contact">
+						<label for="">Paciente</label>
+					</p>
+					<h:selectOneMenu styleClass="select-style estadocivil"
+						value="#{tratadorPaciente.paciente.idPaciente}" name="estadocivil"
+						required="true" requiredMessage="Selecione um paciente">
+						<f:selectItem itemValue="#{null}" itemLabel="Selecione" />
+						<f:selectItems value="#{tratadorPaciente.listar()}" var="tratador"
+							itemLabel="#{tratador.nome}" itemValue="#{tratador.idPaciente}" />
+					</h:selectOneMenu>
+					<br />
+					<br />
+
+
+
+					<h:commandButton value="Selecionar"
+						action="#{tratadorPaciente.consultarPaciente()}" class="buttom"
+						update="growl" />
+
+					<c:if test="${tratadorPaciente.paciente.idPaciente > 0}">
+						<p class="contact">
+							<label for="name">Nome</label>
+						</p>
+						<h:inputText id="nome" value="#{tratadorPaciente.paciente.nome}"
+							required="true" requiredMessage="O campo nome não pode ser vazio.">
+							<f:validateLength minimum="3" maximum="200" />
+						</h:inputText>
+
+
+						<!-- 				 data -->
+						<p class="contact">
+							<label for="data">Data Nascimento</label>
+						</p>
+						<p:inputMask mask="99/99/9999"
+							value="#{tratadorPaciente.paciente.dataNascimento}"
+							id="datanascimento" required="true"
+							requiredMessage="A data de nascimento não pode ser vazia.">
+							<f:convertDateTime pattern="dd/MM/yyyy" />
+						</p:inputMask>
+
+						<p class="contact">
+							<label for="Antecedentespessoais">Antecedentes pessoais</label>
+						</p>
+						<h:inputTextarea id="Antecedentespessoais" class="textarea"
+							name="antecedentespessoais" cols="45" rows="5"
+							value="#{tratadorPaciente.paciente.antecedentesPessoais}"  validatorMessage="O número maxímo de caracteres é 8000.">
+							<f:validateLength maximum="8000" />
+						</h:inputTextarea>
+						<br />
+
+						<p class="contact">
+							<label for="Antecedentesfamiliares">Antecedentes
+								familiares</label>
+						</p>
+						<h:inputTextarea id="Antecedentesfamiliares" class="textarea"
+							name="antecedentesfamiliares" cols="45" rows="5"
+							value="#{tratadorPaciente.paciente.antecedentesFamiliares}"  validatorMessage="O número maxímo de caracteres é 8000.">
+							<f:validateLength maximum="8000" />
+						</h:inputTextarea>
+						<br />
+
+						<p class="contact">
+							<label for="HistóricoPsicosocial">Histórico Psicosocial</label>
+						</p>
+						<h:inputTextarea id="Históricopsicosocial" class="textarea"
+							name="historicopsicosocial" cols="45" rows="5"
+							value="#{tratadorPaciente.paciente.historicoPsicossocialHabitosVicios}"  validatorMessage="O número maxímo de caracteres é 8000.">
+							<f:validateLength maximum="8000" />
+						</h:inputTextarea>
+						<br />
+
+						<p class="contact">
+							<label for="Históricodedoençasanteriores">Histórico de
+								doenças anteriores</label>
+						</p>
+						<h:inputTextarea id="Históricodedoençasanteriores"
+							class="textarea" name="hda" cols="45" rows="5"
+							value="#{tratadorPaciente.paciente.hda}"  validatorMessage="O número maxímo de caracteres é 8000.">
+							<f:validateLength maximum="8000" />
+						</h:inputTextarea>
+						<br />
+
+
+						<p class="contact">
+							<label for="naturalidade">Naturalidade</label>
+						</p>
+						<h:inputText id="Naturalidade"
+							value="#{tratadorPaciente.paciente.naturalidade.naturalidade}"
+							required="true"
+							validatorMessage="Naturalidade deve conter no mínimo 3 e no maxímo 50 caracteres."
+							requiredMessage="O Campo naturalidade é obrigatório!">
+							<f:validateLength minimum="3" maximum="50" />
+						</h:inputText>
+
+						<p class="contact">
+							<label for="profissao">Profissão</label>
+						</p>
+						<h:inputText id="profissao"
+							value="#{tratadorPaciente.paciente.profissao.profissao}"
+							validatorMessage="Profissão deve conter no mínimo 3 e no maxímo 50 caracteres"
+							required="true"
+							requiredMessage="O campo naturalidade é obrigatório!">
+							<f:validateLength minimum="3" maximum="50" />
+						</h:inputText>
+
+						<p class="contact">
+							<label for="genero">Gênero</label>
+						</p>
+						<h:selectOneMenu styleClass="select-style gender"
+							value="#{tratadorPaciente.paciente.genero.idGenero}"
+							name="gender" required="true"
+							requiredMessage="Escolha um Gênero.">
+							<f:selectItem itemValue="#{null}" itemLabel="Selecione" />
+							<f:selectItems value="#{tratadorGenero.listar()}" var="tratador"
+								itemLabel="#{tratador.genero}" itemValue="#{tratador.idGenero}" />
+						</h:selectOneMenu>
+						<br />
+						<br />
+
+						<p class="contact">
+							<label for="estadocivil">Estado Civil</label>
+						</p>
+						<h:selectOneMenu styleClass="select-style estadocivil"
+							value="#{tratadorPaciente.paciente.estadoCivil.idEstadoCivil}"
+							name="estadocivil" required="true"
+							requiredMessage="Escolha um Estado civil.">
+							<f:selectItem itemValue="#{null}" itemLabel="Selecione" />
+							<f:selectItems value="#{tratadorEstadoCivil.listar()}"
+								var="tratador" itemLabel="#{tratador.estadoCivil}"
+								itemValue="#{tratador.idEstadoCivil}" />
+						</h:selectOneMenu>
+						<br />
+						<br />
+
+						<p class="contact">
+							<label for="raca">Raça</label>
+						</p>
+						<h:selectOneMenu styleClass="select-style raca"
+							value="#{tratadorPaciente.paciente.raca.idRaca}" name="raca"
+							required="true" requiredMessage="Escolha uma Raça.">
+							<f:selectItem itemValue="#{null}" itemLabel="Selecione" />
+							<f:selectItems value="#{tratadorRaca.listar()}" var="tratador"
+								itemLabel="#{tratador.raca}" itemValue="#{tratador.idRaca}" />
+						</h:selectOneMenu>
+						<br />
+						<br />
+
+						<h:commandButton value="Alterar"
+							action="#{tratadorPaciente.alterarPaciente()}" class="buttom"
+							update="growl" />
+
+					</c:if>
+				</h:form>
+			</div>
+
+		</ui:define>
+	</ui:composition>
+</body>
+</html>

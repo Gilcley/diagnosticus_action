@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"> 
+
+<h:head>
+
+</h:head>                        
+<body> 
+ 	<ui:composition template="/template/principal.xhtml">
+ 		<ui:define name="content">
+				<div class="title"><h2>Alterar Simulação</h2></div>
+				
+				<div  class="form">
+    		<h:form id="contactform"> 
+    		<p:growl id="growl" sticky="true" />
+			<p class="contact"><label for="">Simulação</label></p> 
+			<h:selectOneMenu styleClass="select-style estadocivil" value="#{tratadorSimulacao.simulacao.idSimulacao}" name="estadocivil"
+			required="true" requiredMessage="Selecione uma Simulação.">
+			<f:selectItem itemValue="#{null}" itemLabel="Selecione" />
+			<f:selectItems value="#{tratadorSimulacao.listar()}" var="tratador"
+					itemLabel="#{tratador.descricaoSimulacao}" itemValue="#{tratador.idSimulacao}" />
+			</h:selectOneMenu><br /> <br />
+			
+			
+			
+			<h:commandButton value="Selecionar"
+				action="#{tratadorSimulacao.consultarSimulacao()}" class="buttom"/>
+				
+			<c:if test="${tratadorSimulacao.simulacao.idSimulacao > 0}">
+			
+			<p class="contact">
+						<label for="raca">Caso Emergencial:</label>
+					</p>
+					<h:selectOneMenu id="queixa" styleClass="select-style raca" required="true" requiredMessage="Selecione um caso emergencial."
+						value="#{tratadorSimulacao.simulacao.idCasoEmergencial.idCasoEmergencial}"
+						name="raca">
+						<f:selectItem itemValue="#{null}" itemLabel="Selecione" />
+						<f:selectItems value="#{tratadorCasoEmergencial.listar()}"
+							var="tratador" itemLabel="#{tratador.descricaoCaso}"
+							itemValue="#{tratador.idCasoEmergencial}" />
+					</h:selectOneMenu>
+					<br />
+					<br />
+
+					<p class="contact">
+						<label for="raca">Aluno:</label>
+					</p>
+					<h:selectOneMenu id="paciente" styleClass="select-style raca"
+						value="#{tratadorSimulacao.usuario.idUsuario}" name="raca"
+						
+						requiredMessage="É necessário escolher um usuário.">
+						<f:selectItem itemValue="#{null}" itemLabel="Selecione" />
+						<f:selectItems value="#{tratadorUsuario.listarAlunos()}" var="tratador"
+							itemLabel="#{tratador.nome}" itemValue="#{tratador.idUsuario}" />
+					</h:selectOneMenu>
+					<br />
+					<br />
+
+						<h:commandButton value="Selecionar aluno" action="#{tratadorSimulacao.SelecionarAluno()}" class="buttom" />		
+						
+						
+				<h:dataTable value="#{tratadorSimulacao.listaAlunosSimulacao}" var="aluno"
+  			 styleClass="employeeTable" 
+	   			headerClass="employeeTableHeader"
+			   rowClasses="employeeTableOddRow,employeeTableEvenRow">
+ 			  <h:column>    				
+    			  <f:facet name="header">Alunos Selecionados:</f:facet>    				
+    			 #{aluno.nome}
+    			 <h:commandLink actionListener="#{tratadorSimulacao.removerAluno(aluno)}" value="Remover"/>
+  				 </h:column>
+			</h:dataTable><br /> <br />
+
+					<p class="contact">
+						<label for="Antecedentes pessoais">Descrição da Simulação:</label>
+					</p>
+					<h:inputTextarea id="descricaosimulacao" class="textarea" required="true"  requiredMessage="O campo descrição da simlação é obrigatório."
+						name="antecedentespessoais" cols="45" rows="5"
+						value="#{tratadorSimulacao.simulacao.descricaoSimulacao}">
+						<f:validateLength maximum="50" />
+					</h:inputTextarea>
+					<br />
+
+					<p class="contact">
+						<label for="name">Tempo da Simulação</label>
+					</p>
+        			<p:calendar id="temponecessario" value="#{tratadorSimulacao.simulacao.tempoNecessario}" pattern="HH:mm" timeOnly="true" required="true" />
+
+					<p class="contact">
+						<label for="name">Tempo do Exame Ficar Pronto</label>
+					</p>
+					<p:calendar id="tempoexame" value="#{tratadorSimulacao.simulacao.tempoExamePronto}" pattern="HH:mm " timeOnly="true" required="true"/>
+				
+					<p class="contact">
+						<label for="name">Tempo de Vida do Paciente</label>
+					</p>
+					<p:calendar id="tempovida" value="#{tratadorSimulacao.simulacao.tempoVidaPaciente}" pattern="HH:mm " timeOnly="true" required="true" />
+					
+			
+			<h:commandButton value="Alterar"
+				action="#{tratadorSimulacao.alterarSimulacao()}" class="buttom" />
+        </c:if>
+   </h:form> 
+</div>      
+
+		</ui:define>
+	</ui:composition>
+</body> 
+</html>

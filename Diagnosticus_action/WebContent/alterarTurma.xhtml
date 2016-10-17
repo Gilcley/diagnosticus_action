@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+
+</h:head>
+<body>
+	<ui:composition template="/template/principal.xhtml">
+		<ui:define name="content">
+			<div class="title">
+				<h2>Alterar Turma</h2>
+			</div>
+			<div class="form">
+				<p class="contact">
+					<label for="">Turmas</label>
+				</p>
+			<h:form id="contactform">
+
+				<h:selectOneMenu styleClass="select-style estadocivil"
+					value="#{tratadorTurma.turma.id}"
+					name="turmas" required="true"
+					requiredMessage="Escolha uma Turma">
+					<f:selectItem itemValue="#{null}" itemLabel="Selecione" />
+					<f:selectItems value="#{tratadorTurma.turmas}"
+						var="turma" itemLabel="#{turma.nomeTurma}"
+						itemValue="#{turma.id}" />
+				</h:selectOneMenu>
+				<br />
+				<br />
+
+
+				<h:commandButton value="Buscar"
+					action="#{tratadorTurma.buscarTurmaSelecionada()}"
+					class="buttom"  update="growl"/>
+						
+					<p:growl id="growl" sticky="true" />
+					
+					<p class="contact">
+						<label for="nomeTurma">Nome</label>
+					</p>
+						<h:inputText value="#{tratadorTurma.turma.nomeTurma}" size="200" maxlength="200"/>
+					<br />
+					<br />
+					<p class="contact">
+						<label for="nomeTurma">Selecionar Alunos</label>
+					</p>
+					<p:fragment autoUpdate="true">
+				  	<p:autoComplete id="themePojo" value="#{tratadorTurma.aluno}" completeMethod="#{tratadorUsuario.autoCompleteUsuario}" 
+                       var="aluno" itemLabel="#{aluno.nome}" itemValue="#{aluno}"  converter="usuarioConverter" forceSelection="true" >
+                     	<p:ajax event="itemSelect" listener="#{tratadorTurma.adicionarAluno}" update="alunosSelecionados" />
+                     </p:autoComplete>
+                     
+                     <h:dataTable rendered="#{tratadorTurma.qtdAlunos > 0}" value="#{tratadorTurma.listaAlunos}" var="aluno" id="alunosSelecionados">
+                      <h:column>    				
+		    			  <f:facet name="header">Alunos selecionados:</f:facet>    				
+		    			 #{aluno.nome} 
+		    			 <h:commandLink actionListener="#{tratadorTurma.removerAluno(aluno)}" value="Remover"/>    				
+	  				 </h:column>
+                     </h:dataTable>
+                     </p:fragment>
+                    <br />
+					<br />
+					<h:commandButton value="Alterar"
+						action="#{tratadorTurma.cadastrarTurma()}" class="buttom"  update="growl"/>
+					
+					
+				</h:form>
+			</div>
+
+
+		</ui:define>
+	</ui:composition>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<h:head>
+
+</h:head>
+<body>
+	<ui:composition template="/template/principal.xhtml">
+		<ui:define name="content">
+			<div class="title">
+				<h2>Alterar Queixa</h2>
+			</div>
+
+			<div class="form">
+				<h:form id="contactform">
+					<h:message for="selecionarqueixa" />
+					<p class="contact">
+						<p:messages />
+						<label for="">Queixa</label>
+					</p>
+					<h:selectOneMenu id="selecionarqueixa"
+						styleClass="select-style estadocivil" required="true"
+						requiredMessage="É necessário escolher uma queixa"
+						value="#{tratadorQueixa.queixa.idQueixa}" name="estadocivil">
+						<f:selectItem itemValue="#{null}" itemLabel="Selecione" />
+						<f:selectItems value="#{tratadorQueixa.listar()}" var="tratador"
+							itemLabel="#{tratador.descricaoQueixa}"
+							itemValue="#{tratador.idQueixa}" />
+					</h:selectOneMenu>
+					<br />
+					<br />
+
+					<h:commandButton value="Selecionar"
+						action="#{tratadorQueixa.consultarQueixa()}" class="buttom" />
+
+					<c:if test="#{tratadorQueixa.queixa.idQueixa > 0}">
+						<p class="contact">
+							<label for="tipoqueixa">Característica</label>
+						</p>
+						<h:selectOneMenu styleClass="select-style estadocivil"
+							value="#{tratadorQueixa.caracteristica.idCaracteristica}"
+							name="estadocivil" required="true"
+							requiredMessage="Escolha uma Característica">
+							<f:selectItem itemValue="#{null}" itemLabel="Selecione" />
+							<f:selectItems value="#{tratadorCaracteristica.listar()}"
+								var="tratador" itemLabel="#{tratador.descricaoCaracteristica}"
+								itemValue="#{tratador.idCaracteristica}" />
+						</h:selectOneMenu>
+						<br />
+						<br />
+						<h:commandButton value="Selecionar Característica"
+							action="#{tratadorQueixa.selecionarCaracteristica()}"
+							class="buttom" />
+
+						<h:dataTable value="#{tratadorQueixa.listacaracteristica}"
+							var="caracteristica" styleClass="employeeTable"
+							headerClass="employeeTableHeader"
+							rowClasses="employeeTableOddRow,employeeTableEvenRow">
+							<h:column>
+								<f:facet class="contact" name="header">Características selecionadas:</f:facet>    				
+    			 #{caracteristica.descricaoCaracteristica} 
+    			 <h:commandLink
+									actionListener="#{tratadorQueixa.removerCaracteristica(caracteristica)}"
+									value="Remover" />
+							</h:column>
+						</h:dataTable>
+						<br />
+						<br />
+
+
+
+
+						<p class="contact">
+							<label for="descrição">Descrição</label>
+						</p>
+						<h:inputTextarea class="textarea" name="queixas" cols="45"
+							rows="5" value="#{tratadorQueixa.queixa.descricaoQueixa}"
+							required="true" requiredMessage="O campo descrição é obrigatório">
+							<f:validateLength maximum="50" />
+						</h:inputTextarea>
+						<br />
+
+						<h:commandButton value="Alterar"
+							action="#{tratadorQueixa.alterarQueixa()}" class="buttom" />
+
+					</c:if>
+				</h:form>
+			</div>
+
+		</ui:define>
+	</ui:composition>
+</body>
+</html>

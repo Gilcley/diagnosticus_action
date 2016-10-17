@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<h:head>
+
+</h:head>
+<body>
+	<ui:composition template="/template/principal.xhtml">
+		<ui:define name="content">
+			<div class="title">
+				<p:growl id="growl" sticky="true" />
+				<h2>Consultar Paciente</h2>
+			</div>
+
+			<div class="form">
+				<h:form id="contactform">
+					<p class="contact">
+						<label for="">Paciente</label>
+					</p>
+					<h:selectOneMenu styleClass="select-style estadocivil"
+						value="#{tratadorPaciente.paciente.idPaciente}" name="estadocivil"
+						required="true"
+						requiredMessage="É necessário escolher um paciente">
+						<f:selectItem itemValue="#{null}" itemLabel="Selecione" />
+						<f:selectItems value="#{tratadorPaciente.listar()}" var="tratador"
+							itemLabel="#{tratador.nome}" itemValue="#{tratador.idPaciente}" />
+					</h:selectOneMenu>
+					<br />
+					<br />
+
+
+
+					<h:commandButton value="Selecionar"
+						action="#{tratadorPaciente.consultarPaciente()}" class="buttom" update="growl"/><br /><br />
+
+					<c:if test="${tratadorPaciente.paciente.idPaciente > 0}">
+							<h:outputText value="Nome: " /><br /><br />
+							<h:inputText value="#{tratadorPaciente.paciente.nome}" disabled="true" /><br />
+							<h:outputText value="Data de nascimento: " /><br /><br />
+							<h:inputText value="#{tratadorPaciente.paciente.dataNascimento.toLocaleString()}" disabled="true" /><br />
+							<h:outputText value="Naturalidade :" /><br /><br />
+							<h:inputText value="#{tratadorPaciente.paciente.naturalidade.naturalidade}" disabled="true" /><br />
+							<h:outputText value="Profissão: " /><br /><br />
+							<h:inputText value="#{tratadorPaciente.paciente.profissao.profissao}" disabled="true" /><br />
+							<h:outputText value="Gênero: " /><br /><br />
+							<h:inputText  value="#{tratadorPaciente.paciente.genero.genero}" disabled="true" /><br />
+							<h:outputText value="Estado Civil: " /><br /><br />
+							<h:inputText  value="#{tratadorPaciente.paciente.estadoCivil.estadoCivil}" disabled="true" /><br />
+							<h:outputText value="Raça: " /><br /><br />
+							<h:inputText  value="#{tratadorPaciente.paciente.raca.raca}" disabled="true" /><br />
+					</c:if>
+				</h:form>
+			</div>
+
+		</ui:define>
+	</ui:composition>
+</body>
+</html>

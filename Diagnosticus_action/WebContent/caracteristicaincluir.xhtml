@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+
+</h:head>
+<body>
+	<ui:composition template="/template/principal.xhtml">
+		<ui:define name="content">
+			<div class="title">
+				<h2>Incluir Característica</h2>
+			</div>
+			<div class="form">
+				<h:form id="contactform">
+					<p:growl id="growl" sticky="true" />
+					<p class="contact">
+						<label for="tipocaracteristica">Tipo da Característica</label>
+					</p>
+					<h:selectOneMenu styleClass="select-style estadocivil"
+						value="#{tratadorCaracteristica.tipoCaracteristica.idTipoCaracteristica}"
+						name="estadocivil"
+						required="true" requiredMessage="Escolha o Tipo da Característica">
+						<f:selectItem itemValue="#{null}" itemLabel="Selecione" />
+						<f:selectItems value="#{tratadorTipoCaracteristica.listar()}"
+							var="tratador"
+							itemLabel="#{tratador.descricaoTipoCaracteristica}"
+							itemValue="#{tratador.idTipoCaracteristica}" />
+					</h:selectOneMenu>
+					<br />
+					<br />
+
+
+
+					<p class="contact">
+						<label for="descrição">Descrição</label>
+					</p>
+					<h:inputTextarea class="textarea" name="queixas" cols="45" rows="5"
+						value="#{tratadorCaracteristica.caracteristica.descricaoCaracteristica}"
+						required="true" requiredMessage="O campo Descrição é obrigatório"
+						validatorMessage="A Descrição da característica deve conter no maxímo 8000 caracteres.">
+						<f:validateLength maximum="8000" />
+					</h:inputTextarea>
+					<br />
+
+
+					<h:commandButton value="Salvar"
+						action="#{tratadorCaracteristica.adicionarCaracteristica()}" class="buttom"  update="growl"/>
+
+				</h:form>
+			</div>
+
+
+		</ui:define>
+	</ui:composition>
+</body>
+</html>

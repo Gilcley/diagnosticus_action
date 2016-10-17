@@ -1,0 +1,86 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<h:head>
+
+</h:head>                        
+<body> 
+
+
+<!--Essa tela fuinciona depois do professor ter configurado uma simula��o!
+	Alem disso, apos o login o aluno faz login , 
+	vai p tela de aluno e clica em jogar simula��o
+	Essa tela somente ir� exibir 
+	os dados do paciente(de acordo com o caso emergencial escolhido pelo prof)
+	
+	 -->
+	 
+	 
+ 	<ui:composition template="/template/jogo.xhtml">
+ 		<ui:define name="content">
+		<div class="title">
+            <h2 id="dadosPaciente">Dados do Paciente <h:messages /></h2></div>
+           	<div class="form">
+				<h:form id="contactform">
+					<p class="contact"><label for="name">Nome</label></p> 
+				<h:inputText id="nome" disabled="true" value="#{tratadorJogo.paciente.nome}" required="true" requiredMessage="O campo nome não pode ser vazio">
+					<f:validateLength minimum="3" maximum="200"/>
+				</h:inputText>
+				
+				
+		<p class="contact"><label for="naturalidade">Data de Nascimento</label></p> 
+			<h:inputText id="datanascimento" value="#{tratadorJogo.paciente.dataNascimento.toLocaleString()}" disabled="true" required="true" requiredMessage="O Campo naturalidade é obrigatório!">
+				<f:validateLength minimum="3" maximum="50"/>
+			</h:inputText>
+        
+			<p class="contact"><label for="Antecedentespessoais">Antecedentes pessoais</label></p>
+			<h:inputTextarea id="Antecedentespessoais" class="textarea" disabled="true" name="antecedentespessoais" cols="45" rows="5" value="#{tratadorJogo.paciente.antecedentesPessoais}">
+				<f:validateLength maximum="8000"/>
+			</h:inputTextarea>
+	
+			<p class="contact"><label for="Antecedentesfamiliares">Antecedentes familiares</label></p> 
+            <h:inputTextarea  id="Antecedentesfamiliares" class="textarea" disabled="true" name="antecedentesfamiliares" cols="45" rows="5" value="#{tratadorJogo.paciente.antecedentesFamiliares}">
+            	<f:validateLength maximum="8000"/>
+            </h:inputTextarea> 
+			
+			<p class="contact"><label for="HistóricoPsicosocial">Histórico Psicosocial</label></p> 
+            <h:inputTextarea id="Históricopsicosocial" class="textarea" disabled="true" name="historicopsicosocial" cols="45" rows="5" value="#{tratadorJogo.paciente.historicoPsicossocialHabitosVicios}">
+            	<f:validateLength maximum="8000"/>
+            </h:inputTextarea>
+			
+			<p class="contact"><label for="Históricodedoençasanteriores">Histórico de doenças anteriores</label></p> 
+            <h:inputTextarea  id="Históricodedoençasanteriores" disabled="true" class="textarea" name="hda" cols="45" rows="5" value="#{tratadorJogo.paciente.hda}">
+            	<f:validateLength maximum="8000"/>
+            </h:inputTextarea>
+			
+		
+    		<p class="contact"><label for="naturalidade">Naturalidade</label></p> 
+			<h:inputText id="Naturalidade" value="#{tratadorJogo.paciente.naturalidade.naturalidade}" disabled="true"  required="true" requiredMessage="O Campo naturalidade é obrigatório!">
+				<f:validateLength minimum="3" maximum="50"/>
+			</h:inputText>
+			
+			<p class="contact"><label for="naturalidade">Genero</label></p> 
+			<h:inputText id="genero" value="#{tratadorJogo.paciente.genero.genero}"  required="true" disabled="true" requiredMessage="O Campo naturalidade é obrigatório!">
+				<f:validateLength minimum="3" maximum="50"/>
+			</h:inputText>
+			
+			<p class="contact"><label for="naturalidade">Estado Civil</label></p> 
+			<h:inputText id="estadocivil" value="#{tratadorJogo.paciente.estadoCivil.estadoCivil}" disabled="true"  required="true" requiredMessage="O Campo naturalidade é obrigatório!">
+				<f:validateLength minimum="3" maximum="50"/>
+			</h:inputText>
+			
+				<p class="contact"><label for="naturalidade">Raça</label></p> 
+			<h:inputText id="raca" value="#{tratadorJogo.paciente.raca.raca}"  required="true" disabled="true" requiredMessage="O Campo naturalidade é obrigatório!">
+				<f:validateLength minimum="3" maximum="50"/>
+			</h:inputText>
+				</h:form>
+			</div>
+           	
+		</ui:define>
+	</ui:composition>
+	
+</body> 
+</html>

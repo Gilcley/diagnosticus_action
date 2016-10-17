@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<h:head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Diagnosticus </title><p>Action</p>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link href="http://fonts.googleapis.com/css?family=Karla:400,700" rel="stylesheet" />
+<link rel="stylesheet" type="text/css"  href="../css/jogo.css"/> 
+
+</h:head>
+<h:body>
+<div id="wrapper">
+<div id="header-wrapper">
+    <div id="header" class="container">
+      <div id="logo">
+      	<p:media player="quicktime" id="audio_sirene"  value="../sons/sirene.mp3" cache="false" style="position: absolute; left:-9999px">
+      	<f:param name="autoPlay"  value="true" />
+      	</p:media>
+        <h1><a href="#">Diagnosticus</a></h1>
+        <p>Action</p>
+      </div>
+      </div>
+  </div>
+<div id="caixa" class="container">
+    <p:growl id="growl"  sticky="true" />
+    <div id ="tempos">
+	     <div id="tempo">     
+	        <h:form>       		
+	      		<h:outputText id="txt_count" value="Tempo da Simulação: #{tratadorJogo.tempoJogo}"  styleClass="font-weigth:bold; font-size: 18px; color:red;"/>
+				<p:poll interval="1" listener="#{tratadorJogo.diminuiTempo()}" update="txt_count" id="poll1"/>
+	       
+	       		<p:poll interval="10" listener="#{tratadorJogo.calculaTempoExame()}" id="poll2" />
+	        </h:form>
+	      </div>
+     	 <div id="vidas"> 
+     	 <h:form id="vidascoracoes">
+     	 	<c:if test="#{tratadorJogo.tempoCoracoesEstagio == 5}">
+	        	<div id="coracao1"><img src="../images/coracao.png"/> </div>
+	        </c:if>
+	        <c:if test="#{tratadorJogo.tempoCoracoesEstagio >= 4}">
+	        	<div id="coracao2"><img src="../images/coracao.png"/></div>
+	        </c:if>
+	        <c:if test="#{tratadorJogo.tempoCoracoesEstagio >= 3}">
+	        	<div id="coracao3"><img src="../images/coracao.png"/></div>
+	        </c:if>
+	        <c:if test="#{tratadorJogo.tempoCoracoesEstagio >= 2}">
+	        	<div id="coracao4"><img src="../images/coracao.png"/></div>
+	        </c:if>
+	        <c:if test="#{tratadorJogo.tempoCoracoesEstagio >= 1}">
+	        	<div id="coracao5"><img src="../images/coracao.png"/></div>
+	        </c:if>
+	        	<p:poll interval="1" listener="#{tratadorJogo.diminuiCoracao()}" update="vidascoracoes"/>
+	        
+	        </h:form>
+    	</div>
+   </div>
+      <div id="page" class="container">
+     	
+        <div id="content">
+         <ui:insert name="content"></ui:insert>
+		</div>
+		</div>
+
+    <div id="menu" class="container">
+         <ul>
+                <li id="jogo"><a href= "jogoExameFisico.xhtml#bemvindo" onclick="#{tratadorJogo.CarregarExame()}" ></a></li>
+                <li id="descricao"><a href= "jogoDetalhesPaciente.xhtml#dadosPaciente"></a></li>
+                <li id="queixas"><a href= "jogoQueixa.xhtml#queixasPaciente"></a></li>
+                <li id="exames"><a href= "jogoExames.xhtml#exames"></a></li>
+                <li id="conduta"><a href= "jogoConduta.xhtml#conduta"></a></li>
+                <li id="diagnostico"> <a href= "jogoDiagnostico.xhtml#telaDiagnostico"></a></li>
+         </ul>
+    </div>
+  </div>
+</div>
+  <div id="copyright" class="container">
+  <p> &copy;  All rights reserved. | Diagnosticus Action | Simulação </p>
+  </div>
+</h:body>
+</html>

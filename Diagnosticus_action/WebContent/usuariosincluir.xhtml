@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+</h:head>
+<body>
+	<ui:composition template="/template/principal.xhtml">
+		<ui:define name="content">
+			<div class="title">
+				<h2 id="incluirUsuario">Incluir Novo Usuário</h2>
+			</div>
+			<div class="form">
+				<h:form id="contactform">
+					<p:growl id="growl"  sticky="true" />
+
+					<p class="contact">
+						<label for="name">Nome</label>
+					</p>
+					<h:inputText id="nome" value="#{tratadorUsuario.usuario.nome}"
+						required="true" requiredMessage="O campo nome não pode ser vazio."
+						validatorMessage="O Nome deve possuir no mínimo 3 e no máximo 200 caracteres.">
+						<f:validateLength minimum="3" maximum="200" />
+					</h:inputText>
+					<br />
+
+					<p class="contact">
+						<label for="name">Matrícula</label>
+					</p>
+					<p:inputText id="Matricula" maxlength="12" required="true"
+						p:placeholder="Matrícula"
+						requiredMessage="O campo matrícula é obrigatório."
+						value="#{tratadorUsuario.usuario.matricula}"
+						validatorMessage="A matrícula possui no mínimo 7 e no máximo 12 números.">
+						<f:convertNumber type="number" />
+						<f:validateLength minimum="7" />
+					</p:inputText>
+
+
+					<p class="contact">
+						<label for="raca">Tipo do Usuário</label>
+					</p>
+					<h:selectOneMenu id="tipodeusuario" styleClass="select-style raca"
+						value="#{tratadorUsuario.tipousuario.idTipoUsuario}" name="raca"
+						required="true" requiredMessage="Escolha o tipo de usuário!">
+						<f:selectItem itemValue="#{null}" itemLabel="Selecione" />
+						<f:selectItems value="#{tratadorTipoUsuario.listar()}"
+							var="tratador" itemLabel="#{tratador.tipoUsuario}"
+							itemValue="#{tratador.idTipoUsuario}" />
+					</h:selectOneMenu>
+					<br />
+					<br />
+
+
+					<h:commandButton value="Salvar"
+						action="#{tratadorUsuario.adicionarUsuario()}" class="buttom"
+						update="growl" />
+
+				</h:form>
+			</div>
+
+
+		</ui:define>
+	</ui:composition>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"> 
+
+<h:head>
+
+</h:head>                        
+<body> 
+ 	<ui:composition template="/template/diagnosticus_acoes.xhtml">
+ 		<ui:define name="game">
+			<div id ="titulo_tela">Dados do Paciente</div>
+				<div id = "dados_paciente">
+								Nome: #{tratadorJogo.caso.paciente.nome}<br/><br/>
+								Data de Nascimento: <h:outputText value="#{tratadorJogo.caso.paciente.dataNascimento}"><f:convertDateTime pattern="dd/MM/yyyy"/></h:outputText> <br/><br/>
+								Antecedentes Pessoais: #{tratadorJogo.caso.paciente.antecedentesPessoais}<br/><br/>
+								Antecedentes Familiares: #{tratadorJogo.caso.paciente.antecedentesFamiliares}<br/><br/>
+								Historico Psicosocial: #{tratadorJogo.caso.paciente.historicoPsicossocialHabitosVicios}<br/><br/>
+								Historico de Doencas Anteriores: #{tratadorJogo.caso.paciente.hda}<br/><br/>
+								Naturalidade: #{tratadorJogo.caso.paciente.naturalidade.naturalidade}<br/><br/>
+								Estado Civil: #{tratadorJogo.caso.paciente.estadoCivil.estadoCivil}<br/><br/>
+								Genero: #{tratadorJogo.caso.paciente.genero.genero}<br/><br/>
+								Raca: #{tratadorJogo.caso.paciente.raca.raca}<br/>
+				</div>
+		</ui:define>
+	</ui:composition>
+</body> 
+</html>

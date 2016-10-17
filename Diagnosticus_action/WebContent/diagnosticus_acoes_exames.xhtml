@@ -1,0 +1,35 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"> 
+
+<h:head>
+
+</h:head>                        
+<body> 
+ 	<ui:composition template="/template/diagnosticus_acoes.xhtml">
+ 		<ui:define name="game">
+			<div id ="titulo_tela">Solicitar Exame</div>
+				<div id ="lista_exames">
+					<nav id="nav2">
+						<h:form>
+							<ul>
+								<c:forEach items="#{tratadorExame.listar()}" var="exame">
+									<li>
+										<h:commandLink action="#{tratadorJogo.preSelecionarExame()}">${exame.nomeExame}
+											<f:setPropertyActionListener target="#{tratadorJogo.exame.idExame}" value="#{exame.idExame}"/>									
+										</h:commandLink>
+									</li>
+								</c:forEach>
+	
+							</ul>
+						</h:form>
+					</nav>
+				</div>
+				<div id = "ajuda"></div>				
+
+		</ui:define>
+	</ui:composition>
+</body> 
+</html>

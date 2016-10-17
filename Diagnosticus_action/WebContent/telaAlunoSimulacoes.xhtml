@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<h:head>
+
+</h:head>                        
+<body> 
+ 	<ui:composition template="/template/telaAluno.xhtml">
+ 		<ui:define name="content">
+ 		<div class="title">
+            <h2>Simulações:</h2></div>
+    <h:form>
+    <p:messages/>
+			 	<!-- Colocar uma lista de simulações novas do tipo radio button-->
+			 	<p:panelGrid>
+			 		<p:selectOneRadio id="simulacao" value="#{tratadorUsuario.simulacao.idSimulacao}" layout="grid" columns="1"
+			 		required="true" requiredMessage="É necessário escolher uma Simulação">
+			 			<f:selectItems value="#{tratadorUsuario.listaSimulacoes}"
+							var="tratador" itemLabel="#{tratador.descricaoSimulacao}"
+							itemValue="#{tratador.idSimulacao}" />
+			 		</p:selectOneRadio>
+			 	</p:panelGrid>
+				
+			<h:commandButton value="Jogar"
+			class="buttom"  action="#{tratadorUsuario.telaJogo()}"/>
+		</h:form>
+		</ui:define>
+	</ui:composition>
+</body> 
+</html>

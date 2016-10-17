@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:x="http://primefaces.org/ui"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+
+<h:head>
+
+
+</h:head>
+<body>
+	<ui:composition template="/template/login.xhtml">
+		<ui:define name="caixa">
+
+			<div class="login">
+				<h:form>
+					<x:growl id="growl"  sticky="true" />
+
+				<x:inputText maxlength="12" required="true" p:placeholder="Matrícula" requiredMessage="O Campo matrícula é obrigatório." 
+			value="#{tratadorUsuario.usuario.matricula}"
+			validatorMessage="A matrícula possui no mínimo 7 e no máximo 12 números.">
+			<f:convertNumber type="number"/>
+			<f:validateLength minimum="7"/>
+			</x:inputText>
+
+					<br />
+
+
+					<!-- verificar se a matricula ta no sistema, se n tiver n pode ter acesso
+	
+	 -->
+
+					<h:inputSecret type="password" p:placeholder="Senha"
+						name="password" value="#{tratadorUsuario.usuario.senha}"
+						required="true"
+						requiredMessage="O campo Senha não pode ser vazio!"
+						validatorMessage="A Senha deve possuir no mínimo 6 caracteres.">
+						<f:validateLength minimum="6" />
+					</h:inputSecret>
+					<br />
+
+
+					<h:inputSecret type="password" p:placeholder=" Repetir Senha"
+						name="password" value="#{tratadorUsuario.confirmarSenha}"
+						required="true"
+						requiredMessage="O campo Repetir Senha não pode ser vazio!"
+						validatorMessage="A Senha deve possuir no mínimo 6 caracteres.">
+						<f:validateLength minimum="6" />
+					</h:inputSecret>
+					<br />
+
+
+					<h:inputText type="text" p:placeholder="Apelido" name="user"
+						value="#{tratadorUsuario.usuario.apelido}" required="true"
+						requiredMessage="O campo Apelido não pode ser vazio!"
+						validatorMessage="O Apelido deve conter no minimo 4 e no maximo 10 caracteres.e só pode ter os símbolos '.' e '_'." maxlength="10">
+						<f:validateRegex pattern="([a-z]|[A-Z]|[0-9]|[.]|[_]){4,10}" />
+					</h:inputText>
+					<br />
+					<br />
+
+					<h:inputText type="text" p:placeholder="E-mail" name="user"
+						required="true" validatorMessage="O formato do Email é inválido!"
+						requiredMessage="O campo E-mail não pode ser vazio!"
+						value="#{tratadorUsuario.usuario.email}">
+						<f:validateRegex pattern="[a-zA-Z0-9\-\_\.]+@[a-zA-Z0-9\-\_\.]+" />
+						<f:validateLength minimum="3" maximum="200" />
+					</h:inputText>
+					<br />
+					<br />
+
+					<x:commandButton value="Cadastrar"
+						action="#{tratadorUsuario.CadastrarUsuario()}" update="growl" />
+					<x:commandButton value="Voltar" action="loginEntrar.xhtml"
+						immediate="true" />
+				</h:form>
+
+			</div>
+
+		</ui:define>
+	</ui:composition>
+</body>
+</html>

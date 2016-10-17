@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"> 
+
+<h:head>
+</h:head>                        
+<body> 
+ 	<ui:composition template="/template/principal.xhtml">
+ 		<ui:define name="content">
+				<div class="title"><h2>Incluir Novo Paciente</h2></div>
+				<div  class="form">
+    		<h:form id="contactform"> 
+    			<p:growl id="growl"  sticky="true" />
+    			<p class="contact"><label for="name">Nome</label></p> 
+				<h:inputText id="nome"  value="#{tratadorPaciente.paciente.nome}" required="true" requiredMessage="O nome não pode ser vazio." validatorMessage="O nome deve possuir no mínimo 3 e no maxímo 200 caracteres.">
+					<f:validateLength minimum="3" maximum="200"/>
+				</h:inputText>
+				
+				
+<!-- 				 data -->
+			<p class="contact"><label for="data">Data Nascimento</label></p>	
+			<p:inputMask mask="99/99/9999"	value="#{tratadorPaciente.paciente.dataNascimento}" id="datanascimento" validatorMessage="Formato de data inválido.">
+				<f:convertDateTime pattern="dd/MM/yyyy"/>
+			</p:inputMask>
+        
+			<p class="contact"><label for="Antecedentespessoais">Antecedentes pessoais</label></p>
+			<h:inputTextarea id="Antecedentespessoais" class="textarea" name="antecedentespessoais" cols="45" rows="5" 
+			validatorMessage="O número maxímo de caracteres é 8000."
+			value="#{tratadorPaciente.paciente.antecedentesPessoais}">
+				<f:validateLength maximum="8000"/>
+			</h:inputTextarea><br /> 
+	
+			<p class="contact"><label for="Antecedentesfamiliares">Antecedentes familiares</label></p> 
+            <h:inputTextarea  id="Antecedentesfamiliares" class="textarea" name="antecedentesfamiliares" cols="45" rows="5" 
+            validatorMessage="O número maxímo de caracteres é 8000."
+            value="#{tratadorPaciente.paciente.antecedentesFamiliares}">
+            	<f:validateLength maximum="8000"/>
+            </h:inputTextarea><br /> 
+			
+			<p class="contact"><label for="HistóricoPsicosocial">Histórico Psicosocial</label></p> 
+            <h:inputTextarea id="Históricopsicosocial" class="textarea" name="historicopsicosocial" cols="45" rows="5" 
+            validatorMessage="O número maxímo de caracteres é 8000."
+            value="#{tratadorPaciente.paciente.historicoPsicossocialHabitosVicios}">
+            	<f:validateLength maximum="8000"/>
+            </h:inputTextarea><br /> 
+			
+			<p class="contact"><label for="Históricodedoençasanteriores">Histórico de doenças anteriores</label></p> 
+            <h:inputTextarea  id="Históricodedoençasanteriores" class="textarea" name="hda" cols="45" rows="5" 
+            validatorMessage="O número maxímo de caracteres é 8000."
+            value="#{tratadorPaciente.paciente.hda}">
+            	<f:validateLength maximum="8000"/>
+            </h:inputTextarea><br />
+			
+		
+    		<p class="contact"><label for="naturalidade">Naturalidade</label></p> 
+			<h:inputText id="Naturalidade" value="#{tratadorPaciente.naturalidade.naturalidade}"  required="true" requiredMessage="O campo naturalidade é obrigatório."
+			validatorMessage="Naturalidade deve conter no mínimo 3 e no máximo 50 caracteres.">
+				<f:validateLength minimum="3" maximum="50"/>
+			</h:inputText>
+			
+			<p class="contact"><label for="profissao">Profissão</label></p> 
+			<h:inputText id="profissao" value="#{tratadorPaciente.profissao.profissao}"  required="true" 
+			validatorMessage="Profissão deve conter no mínimo 3 e no máximo 50 caracteres."
+			requiredMessage="O campo profissão é obrigatório.">
+				<f:validateLength minimum="3" maximum="50"/>
+			</h:inputText>
+			
+			<p class="contact"><label for="genero">Gênero</label></p> 
+			<h:selectOneMenu styleClass="select-style gender" value="#{tratadorPaciente.genero.idGenero}" name="gender" required="true" requiredMessage="Escolha um gênero.">
+			<f:selectItem itemValue="#{null}" itemLabel="Selecione" />
+			<f:selectItems value="#{tratadorGenero.listar()}" var="tratador"
+					itemLabel="#{tratador.genero}" itemValue="#{tratador.idGenero}" />
+			</h:selectOneMenu><br /> <br />
+			
+			<p class="contact"><label for="estadocivil">Estado Civil</label></p> 
+			<h:selectOneMenu styleClass="select-style estadocivil" value="#{tratadorPaciente.estadocivil.idEstadoCivil}" name="estadocivil" required="true" requiredMessage="Escolha um estado civil.">
+			<f:selectItem itemValue="#{null}" itemLabel="Selecione" />
+			<f:selectItems value="#{tratadorEstadoCivil.listar()}" var="tratador"
+					itemLabel="#{tratador.estadoCivil}" itemValue="#{tratador.idEstadoCivil}" />
+			</h:selectOneMenu><br /> <br />
+			
+			<p class="contact"><label for="raca">Raça</label></p> 
+			<h:selectOneMenu styleClass="select-style raca" value="#{tratadorPaciente.raca.idRaca}" name="raca" required="true" requiredMessage="Escolha uma raça.">
+			<f:selectItem itemValue="#{null}" itemLabel="Selecione" />
+			<f:selectItems value="#{tratadorRaca.listar()}" var="tratador"
+					itemLabel="#{tratador.raca}" itemValue="#{tratador.idRaca}" />
+			</h:selectOneMenu><br /> <br />
+			
+			
+			<h:commandButton value="Salvar"
+				action="#{tratadorPaciente.adicionarPaciente()}" class="buttom" update="growl" />
+        
+   </h:form> 
+</div>      
+		
+		</ui:define>
+	</ui:composition>
+</body>
+</html>
