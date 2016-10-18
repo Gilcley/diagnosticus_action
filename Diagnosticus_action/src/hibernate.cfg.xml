@@ -56,6 +56,7 @@
 		<mapping class="br.com.diagnosticus_action.dominio.Avaliacao"/>
 		<mapping class="br.com.diagnosticus_action.dominio.Turma"/>
 		<mapping class="br.com.diagnosticus_action.dominio.CID"/>
+		<mapping class="br.com.diagnosticus_action.dominio.ImagemPaciente"/>
 		
     </session-factory>
 

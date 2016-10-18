@@ -1,6 +1,12 @@
 package br.com.diagnosticus_action.Tratador;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
@@ -12,6 +18,7 @@ import javax.faces.model.SelectItem;
 import br.com.diagnosticus_action.Cadastro.*;
 import br.com.diagnosticus_action.dominio.EstadoCivil;
 import br.com.diagnosticus_action.dominio.Genero;
+import br.com.diagnosticus_action.dominio.ImagemPaciente;
 import br.com.diagnosticus_action.dominio.Naturalidade;
 import br.com.diagnosticus_action.dominio.Paciente;
 import br.com.diagnosticus_action.dominio.Profissao;
@@ -53,7 +60,7 @@ import br.com.diagnosticus_action.util.DAOFactory;
 			this.cadastroRaca = DAOFactory.criarRacaDAO();
 		}
 
-		public void adicionarPaciente() {
+		public void adicionarPaciente() throws ParseException {
 			
 			
 			this.cadastroPaciente = new CadastroPaciente();
@@ -70,7 +77,7 @@ import br.com.diagnosticus_action.util.DAOFactory;
 			paciente.setEstadoCivil(cadastroEstadoCivil.carregar(estadocivil.getIdEstadoCivil()));
 			paciente.setGenero(cadastroGenero.carregar(genero.getIdGenero()));
 			paciente.setRaca(cadastroRaca.carregar(raca.getIdRaca()));
-			
+			paciente.setImagem(adicionarImagemPaciente());
 			
 			try {
 				
@@ -114,6 +121,7 @@ import br.com.diagnosticus_action.util.DAOFactory;
 				novopaciente.setHda(paciente.getHda());
 				novopaciente.setHistoricoPsicossocialHabitosVicios(paciente.getHistoricoPsicossocialHabitosVicios());
 				novopaciente.setNome(paciente.getNome());
+				novopaciente.setImagem(adicionarImagemPaciente());
 				
 				cadastroPaciente.atualizar(novopaciente);
 				facesMessage = new FacesMessage(" O Paciente foi alterado com sucesso!");
@@ -124,6 +132,44 @@ import br.com.diagnosticus_action.util.DAOFactory;
 				context.addMessage(null, facesMessage);
 			}
 
+		}
+		
+		private ImagemPaciente adicionarImagemPaciente() throws ParseException{
+			CadastroImagemPaciente dao = DAOFactory.criarImagemPacienteDAO();
+			int idade = getIdade();
+			if(idade == 0 )
+				return dao.buscar(ImagemPaciente.BEBE, paciente.getGenero().getIdGenero() == 1 ? "M" : "F", paciente.getRaca().getIdRaca());
+			if(idade > 0 && idade < 12)
+				return dao.buscar(ImagemPaciente.CRIANCA, paciente.getGenero().getIdGenero() == 1 ? "M" : "F", paciente.getRaca().getIdRaca());
+			if(idade >= 12 && idade < 18 )
+				return dao.buscar(ImagemPaciente.ADOLESCENTE, paciente.getGenero().getIdGenero() == 1 ? "M" : "F", paciente.getRaca().getIdRaca());
+			if(idade >= 18 && idade < 60)
+				return dao.buscar(ImagemPaciente.ADULTO, paciente.getGenero().getIdGenero() == 1 ? "M" : "F", paciente.getRaca().getIdRaca());
+			if(idade >= 60)
+				return dao.buscar(ImagemPaciente.IDOSO, paciente.getGenero().getIdGenero() == 1 ? "M" : "F", paciente.getRaca().getIdRaca());
+			return null;
+		}
+		
+		private int getIdade() throws ParseException{
+			
+
+			DateFormat sdf =  new SimpleDateFormat("dd/MM/yyyy");
+			Date dataNascInput = sdf.parse(new SimpleDateFormat("dd/MM/yyyy").format(paciente.getDataNascimento()));
+
+			Calendar dataNascimento = new GregorianCalendar();
+			dataNascimento.setTime(dataNascInput);
+
+			Calendar hoje = Calendar.getInstance();
+
+			int idade = hoje.get(Calendar.YEAR) - dataNascimento.get(Calendar.YEAR);
+
+			dataNascimento.add(Calendar.YEAR, idade);
+
+			if (hoje.before(dataNascimento)) {
+				idade--;
+			}
+
+			return idade;
 		}
 
 		public void removerRaca() {

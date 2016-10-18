@@ -35,6 +35,10 @@ public class Paciente {
 	private Raca Raca;
 	
 	@ManyToOne
+	@JoinColumn(name="id_imagem_paciente")
+	private ImagemPaciente imagem;
+	
+	@ManyToOne
 	@JoinColumn(name="idestadocivil")
 	private EstadoCivil EstadoCivil;
 	
@@ -156,15 +160,20 @@ public class Paciente {
 		HistoricoPsicosSocialHabitosVicios = pHistoricoPsicossocialHabitosVicios;
 	}
 
-
 	public String getHda() {
 		return Hda;
 	}
 
-
 	public void setHda(String hda) {
 		Hda = hda;
 	}
-	
+
+	public ImagemPaciente getImagem() {
+		return imagem;
+	}
+
+	public void setImagem(ImagemPaciente imagem) {
+		this.imagem = imagem;
+	}
 	
 }

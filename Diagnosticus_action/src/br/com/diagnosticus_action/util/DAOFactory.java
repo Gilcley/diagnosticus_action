@@ -150,4 +150,10 @@ public class DAOFactory {
 		return cidDao;
 	}
 	
+	public static CadastroImagemPaciente criarImagemPacienteDAO() {
+		CadastroImagemPaciente 	imagemDao = new CadastroImagemPaciente();
+		imagemDao.setSession(HibernateUtil.getSessionFactory().getCurrentSession());
+		return imagemDao;
+	}
+	
 }

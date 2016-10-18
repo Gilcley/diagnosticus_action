@@ -9,7 +9,7 @@
 <body> 
  	<ui:composition template="/template/diagnosticus_acoes.xhtml">
  		<ui:define name="game">
-			<div id ="paciente"><img src="../images/pac1.PNG"/></div>
+			<div id ="paciente"><img src="#{tratadorJogo.caso.paciente.imagem.imagem}"/></div>
 			<div id = "dialogo"><div id="texto"> <h2>Dr(a). #{tratadorUsuario.usuario.nome}</h2> 
 				<br/> #{tratadorJogo.caso.queixaPrincipal.descricaoQueixa}</div><img src="images/dialogo.png"/></div>
 		</ui:define>
