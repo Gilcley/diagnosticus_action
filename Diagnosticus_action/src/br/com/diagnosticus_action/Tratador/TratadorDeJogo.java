@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -108,6 +109,10 @@ public class TratadorDeJogo {
 		this.cadastroImagemExame = DAOFactory.criarImagemExameDAO();
 	}
 
+	
+	/**
+	 * Metodo responsável por iniciar todas as variaveis necessárias para o funcionamento do jogo
+	 * */
 	public String iniciarJogo(){
 		starSession();
 		
@@ -115,7 +120,25 @@ public class TratadorDeJogo {
 		
 		caso = Cadastrocaso.carregar(simulacao.getIdCasoEmergencial().getIdCasoEmergencial());
 		
+		iniciarVariaveisDeTempo();
+		
 		return "diagnosticus_acoes_queixas.xhtml?faces-redirect=true";
+	}
+	
+	
+	private void iniciarVariaveisDeTempo(){
+
+		Calendar horario = Calendar.getInstance();
+		horario.setTime(simulacao.getTempoNecessario());
+		tempoJogo = (horario.get(Calendar.HOUR)* 60*60) + (horario.get(Calendar.MINUTE)*60); 
+		
+		tempoAtual =0;
+		tempoCoracoesEstagio= 0;
+		horario.setTime(simulacao.getTempoVidaPaciente());
+		float aux = (horario.get(Calendar.HOUR)*3600 + horario.get(Calendar.MINUTE)* 60)/5;
+		tempoCoracoes = (int) aux;
+		tempoCoracoesEstagio = 5;
+		
 	}
 	
 	/**
@@ -312,6 +335,7 @@ public class TratadorDeJogo {
 			}
 			if(tempoJogo>0){
 				tempoJogo--;
+				diminuiCoracao(); 
 			}
 		}
 	}
@@ -391,6 +415,12 @@ public class TratadorDeJogo {
 	
 	public String telaExames(){
 		return "diagnosticus_acoes_exames.xhtml";
+	}
+	
+	public String getTempoJogoFormatado(){
+		int horas = (tempoJogo/60);
+		int minutos = (tempoJogo%60);
+		return  (horas < 10 ? "0" : "")+horas+":"+(minutos < 10 ? "0" : "")+minutos;
 	}
 
 	public int getTipousuario() {

@@ -47,21 +47,31 @@
 						<div class="container_jogo">
 							<p:growl id="growl"  sticky="true" />
 							<div id="top-game">	
-								<div id= "tempo">Tempo Restante: <h:outputText value="#{tratadorUsuario.simulacao.tempoNecessarioFormatado}"/> 
-								</div>
-								<div id= "vida">
-									<div id ="tempoVida">
-									<div id="coracao1"><img src="../images/life.png"/> </div>
-					
-							        	<div id="coracao2"><img src="../images/life.png"/></div>
-
-							        	<div id="coracao3"><img src="../images/life.png"/></div>
-							     
-							        	<div id="coracao4"><img src="../images/life.png"/></div>
-							  
-							        	<div id="coracao5"><img src="../images/life.png"/></div>
-							    	</div>
-								</div>
+								<h:form id="form_Tempo">
+									<div id= "tempo">
+										Tempo Restante: <h:outputText id="tempo_jogo" value="#{tratadorJogo.tempoJogoFormatado}"/> 
+										<p:poll interval="1" listener="#{tratadorJogo.diminuiTempo()}" update="form_Tempo" id="poll1"/>
+									</div>
+									<div id= "vida">
+										<div id ="tempoVida">
+								     	 	<c:if test="#{tratadorJogo.tempoCoracoesEstagio == 5}">
+									        	<div id="coracao1"><img src="../images/life.png"/></div>
+									        </c:if>
+									        <c:if test="#{tratadorJogo.tempoCoracoesEstagio >= 4}">
+									        	<div id="coracao2"><img src="../images/life.png"/></div>
+									        </c:if>
+									        <c:if test="#{tratadorJogo.tempoCoracoesEstagio >= 3}">
+									        	<div id="coracao3"><img src="../images/life.png"/></div>
+									        </c:if>
+									        <c:if test="#{tratadorJogo.tempoCoracoesEstagio >= 2}">
+									        	<div id="coracao4"><img src="../images/life.png"/></div>
+									        </c:if>
+									        <c:if test="#{tratadorJogo.tempoCoracoesEstagio >= 1}">
+									        	<div id="coracao5"><img src="../images/life.png"/></div>
+									        </c:if>
+								    	</div>
+									</div>
+								</h:form>
 							</div>
 							<div id="game">
 							 <ui:insert name="game"></ui:insert>
